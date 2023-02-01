@@ -13,7 +13,7 @@ export class RackService extends ModelService<Rack, RackSchema> {
   }
 
   public find(): Rack {
-    return this._deserialize(this._rackApiService.find());
+    return this._deserialize(this._rackApiService.find(1));
   }
 
   public get(): Array<Rack> {
@@ -24,6 +24,7 @@ export class RackService extends ModelService<Rack, RackSchema> {
     return Rack.create({
       id: input.id,
       name: input.name,
+      size: input.size,
     })
   }
 }

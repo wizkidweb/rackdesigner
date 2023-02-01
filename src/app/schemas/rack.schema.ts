@@ -1,4 +1,5 @@
 export interface RackSchema {
-  id: string,
+  id: number,
   name: string,
+  size: number,
 }

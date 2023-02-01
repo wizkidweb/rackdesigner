@@ -1,1 +1,13 @@
-<p>location-table works!</p>
+<h1>Locations</h1>
+<p>A list of your rack locations</p>
+
+<div class="row">
+  <div class="col-4" *ngFor="let location of locations">
+    <div class="card">
+      <div class="card-header">{{ location.name }}</div>
+      <div class="card-body">
+        <a [routerLink]="'/locations/' + location.id">View</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,13 +7,14 @@ import { RackSchema } from 'src/app/schemas/rack.schema';
 })
 export class RackApiService extends ApiService<RackSchema> {
   public get(): Array<RackSchema> {
-    return [ this.find() ];
+    return [ this.find(1) ];
   }
 
-  public find(): RackSchema {
+  public find(id: number): RackSchema {
     return {
-      id: 'foo',
+      id: id,
       name: 'Foobar',
+      size: 20,
     };
   }
 }

@@ -1,7 +1,6 @@
 import { Model } from "../abstracts/model";
 
-export class Rack extends Model {
+export class Location extends Model {
   public id!: number;
   public name!: string;
-  public size!: number;
 }
