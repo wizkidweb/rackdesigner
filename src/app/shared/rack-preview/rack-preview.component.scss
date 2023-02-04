@@ -1,0 +1,27 @@
+$cm-scale: 10px;
+
+.rack-preview {
+  width: 48.26em;
+  border: 1px solid black;
+  font-size: $cm-scale;
+  
+  .rack-device {
+    position: relative;
+    background-color: #ddd;
+    border-bottom: 1px solid #333;
+    
+    .rack-ports {
+      position: absolute;
+      top: 0.5em;
+      right: 0.5em;
+      bottom: 0.5em;
+      left: 0.5em;
+    }
+  }
+}
+
+@for $i from 1 through 40 {
+  .size-#{$i}u {
+    height: 4.45em * $i;
+  }
+}

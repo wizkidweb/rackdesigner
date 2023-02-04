@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LocationTableComponent } from './location-table.component';
+import { RackPreviewComponent } from './rack-preview.component';
 
-describe('LocationTableComponent', () => {
-  let component: LocationTableComponent;
-  let fixture: ComponentFixture<LocationTableComponent>;
+describe('RackPreviewComponent', () => {
+  let component: RackPreviewComponent;
+  let fixture: ComponentFixture<RackPreviewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LocationTableComponent ]
+      declarations: [ RackPreviewComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LocationTableComponent);
+    fixture = TestBed.createComponent(RackPreviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

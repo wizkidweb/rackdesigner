@@ -14,10 +14,6 @@ const routes: Routes = [
         redirectTo: 'objects',
       },
       {
-        path: 'locations',
-        loadChildren: () => import('./pages/locations/location.module').then(m => m.LocationModule),
-      },
-      {
         path: 'racks',
         loadChildren: () => import('./pages/racks/rack.module').then(m => m.RackModule),
       },

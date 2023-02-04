@@ -1,6 +1,4 @@
 <h1>Racks</h1>
 <p>Your server racks go here.</p>
 
-<div class="rack" *ngFor="let rack of racks" [ngClass]="'size-' + rack.size + 'u'">
-  
-</div>
+<app-rack-preview *ngFor="let rack of racks" [rack]="rack"></app-rack-preview>

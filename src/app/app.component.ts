@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faChartMixed, faHouse, faMapLocation, faServer } from '@fortawesome/pro-duotone-svg-icons';
+import { faHouse, faMapLocation, faServer } from '@fortawesome/pro-duotone-svg-icons';
 
 @Component({
   selector: 'app-root',

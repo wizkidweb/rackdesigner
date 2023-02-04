@@ -1,0 +1,12 @@
+<div class="rack-preview" [ngClass]="'size-' + rack.size + 'u'">
+  <div
+    class="rack-device"
+    *ngFor="let device of rack.devices"
+    [ngClass]="'size-' + device.hardware.size + 'u'"
+    [ngStyle]="{ 'background-color': device.hardware.color }"
+  >
+    <div class="rack-ports">
+      <app-rack-port *ngFor="let port of device.hardware.ports" [port]="port" [device]="device" (selected)="setConnectionNode($event)"></app-rack-port>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,0 @@
-.rack {
-  width: 190px; // 10px per inch
-  border: 1px solid black;
-  @for $i from 1 through 40 {
-    &.size-#{$i}u {
-      height: 17.5px * $i;
-    }
-  }
-}

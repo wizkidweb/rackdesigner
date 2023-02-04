@@ -1,0 +1,15 @@
+<div
+  #portRef
+  class="rack-port"
+  [ngStyle]="{ top: xPos(port.yPos), left: yPos(port.xPos) }"
+  [popover]="portPopover"
+  [popoverTitle]="'Port ID ' + port.id"
+  triggers="mouseenter:mouseleave"
+  (click)="emitPortDevice()"
+></div>
+
+<ng-template #portPopover>
+  <div><strong>Type:</strong> {{ port.type }}</div>
+  <div><strong>Position:</strong> {{ port.xPos }}, {{ port.yPos }}</div>
+  <div *ngIf="port.output"><strong>Power:</strong> {{ port.output }}W</div>
+</ng-template>
