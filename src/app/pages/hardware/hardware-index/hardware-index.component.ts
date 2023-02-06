@@ -41,7 +41,6 @@ export class HardwareIndexComponent implements OnInit {
   }
 
   public remove(id: number): void {
-    console.log('Removing');
     this._hardwareService.delete(id).subscribe(hardware => this.hardware = hardware);
   }
 }

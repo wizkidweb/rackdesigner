@@ -1,28 +1,28 @@
-<h1>Racks</h1>
+<h1>Users</h1>
 
 <table class="table">
   <thead>
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Name</th>
-      <th scope="col">Size (U)</th>
+      <th scope="col">Email</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let rack of racks">
-      <th scope="row">{{ rack.id }}</th>
-      <td>{{ rack.name }}</td>
-      <td>{{ rack.size }}U</td>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{ user.id }}</th>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
       <td>
-        <button type="button" class="btn btn-danger btn-sm" *ngIf="rack.id" (click)="remove(rack.id)">
+        <button type="button" class="btn btn-danger btn-sm" *ngIf="user.id" (click)="remove(user.id)">
           <fa-icon [icon]="faTrash"></fa-icon>
         </button>
       </td>
     </tr>
     <tr>
       <td colspan="5">
-        <strong>Create New Rack</strong>
+        <strong>Create New User</strong>
       </td>
     </tr>
     <tr>
@@ -30,7 +30,7 @@
         <input type="text" class="form-control" [formControl]="name" placeholder="Name">
       </td>
       <td>
-        <input type="number" class="form-control" [formControl]="size" placeholder="Size">
+        <input type="text" class="form-control" [formControl]="email" placeholder="Email">
       </td>
     </tr>
     <tr>

@@ -21,6 +21,10 @@ const routes: Routes = [
         path: 'hardware',
         loadChildren: () => import('./pages/hardware/hardware.module').then(m => m.HardwareModule),
       },
+      {
+        path: 'users',
+        loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule),
+      },
     ],
   },
 ];

@@ -3,6 +3,8 @@ import { Rack } from 'src/app/models/rack.model';
 import { Port } from 'src/app/models/port.model';
 import { Hardware } from 'src/app/models/hardware.model';
 import { ModelServiceContract, RACK_SERVICE } from 'src/app/data/contracts/model-service-contract.interface';
+import { FormControl } from '@angular/forms';
+import { faTrash } from '@fortawesome/pro-duotone-svg-icons';
 
 @Component({
   selector: 'app-rack-index',
@@ -11,6 +13,11 @@ import { ModelServiceContract, RACK_SERVICE } from 'src/app/data/contracts/model
 })
 export class RackIndexComponent implements OnInit {
   public racks: Array<Rack> = [];
+
+  public name = new FormControl('');
+  public size = new FormControl('');
+
+  public faTrash = faTrash;
 
   constructor(@Inject(RACK_SERVICE) private _rackService: ModelServiceContract<Rack>) {}
 
@@ -65,16 +72,17 @@ export class RackIndexComponent implements OnInit {
     this._rackService.get().subscribe(racks => this.racks = racks);
   }
 
-  public createRack() {
-    const rack = Rack.create({
-      name: 'Foobar',
-      size: 20,
-    });
+  public add(): void {
+    if (this.name.valid && this.size.valid) {
+      this._rackService.store(Rack.create({
+        name: this.name.value || '',
+        size: parseInt(this.size.value || ''),
+      })).subscribe(() => this.load());
+    }
+  }
 
-    this._rackService.store(rack).subscribe(newRack => {
-      console.log('New Rack', rack);
-      this.load();
-    });
+  public remove(id: number): void {
+    this._rackService.delete(id).subscribe(racks => this.racks = racks);
   }
 
   private _blankPlate(): Hardware {

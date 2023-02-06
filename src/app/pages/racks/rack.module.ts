@@ -5,6 +5,8 @@ import { RackDetailsComponent } from './rack-details/rack-details.component';
 import { RackRoutingModule } from './rack-routing.module';
 import { PagesModule } from '../pages.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     declarations: [
@@ -16,6 +18,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
         CommonModule,
         RackRoutingModule,
         SharedModule,
+        ReactiveFormsModule,
+        FontAwesomeModule,
     ]
 })
 export class RackModule { }

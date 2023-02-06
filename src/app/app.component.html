@@ -9,7 +9,7 @@
 <body>
   <header>
     <div class="px-3 py-2 text-bg-dark">
-      <div class="container">
+      <div class="container"> 
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
           <a routerLink="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
             RackDesigner
@@ -32,6 +32,12 @@
               <a routerLink="/hardware" routerLinkActive="text-secondary" class="nav-link">
                 <fa-icon [icon]="faComputerClassic" [fixedWidth]="true" size="xl" class="d-block mx-auto text-center mb-1"></fa-icon>
                 Hardware
+              </a>
+            </li>
+            <li>
+              <a routerLink="/users" routerLinkActive="text-secondary" class="nav-link">
+                <fa-icon [icon]="faUsers" [fixedWidth]="true" size="xl" class="d-block mx-auto text-center mb-1"></fa-icon>
+                Users
               </a>
             </li>
           </ul>
