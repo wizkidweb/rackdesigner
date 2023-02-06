@@ -1,48 +1,29 @@
 import { Injectable } from '@angular/core';
 import { WithID } from 'ngx-indexed-db';
 import { map, Observable } from 'rxjs';
-import { ModelService } from 'src/app/data/abstracts/model.service';
 import { HardwareServiceContract } from 'src/app/data/contracts/hardware-service-contracts.interface';
 import { Hardware } from 'src/app/models/hardware.model';
+import { LocalModelService } from '../abstracts/local-model.service';
 import { LocalHardwareApiService } from '../api/hardware-api.service';
 import { HardwareSchema } from '../schemas/hardware.schema';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LocalHardwareService extends ModelService<Hardware, HardwareSchema>
+export class LocalHardwareService extends LocalModelService<Hardware, HardwareSchema>
   implements HardwareServiceContract {
-  constructor(private _hardwareApiService: LocalHardwareApiService) {
+
+  constructor(protected _apiService: LocalHardwareApiService) {
     super();
   }
 
-  public find(id: number): Observable<Hardware> {
-    return this._hardwareApiService.find(id).pipe(
-      map(res => this._deserialize(res)),
-    );
-  }
-
-  public get(): Observable<Array<Hardware>> {
-    return this._hardwareApiService.get().pipe(
-      map(res => this._deserializeArray(res)),
-    );
-  }
-
-  public store(hardware: Hardware): Observable<Hardware> {
-    return this._hardwareApiService.store({
-      name: hardware.name,
-      size: hardware.size.toString(),
-      maxDraw: hardware.maxDraw?.toString() || '',
-      color: hardware.color?.toString() || '',
-    }).pipe(
-      map(res => this._deserialize(res)),
-    )
-  }
-
-  public delete(id: number): Observable<Array<Hardware>> {
-    return this._hardwareApiService.delete(id).pipe(
-      map(res => this._deserializeArray(res)),
-    );
+  protected _serialize(input: Hardware): HardwareSchema {
+    return {
+      name: input.name,
+      size: input.size.toString(),
+      maxDraw: input.maxDraw?.toString() || '',
+      color: input.color?.toString() || '',
+    }
   }
 
   protected _deserialize(input: HardwareSchema & WithID): Hardware {

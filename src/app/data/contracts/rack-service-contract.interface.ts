@@ -8,4 +8,5 @@ export interface RackServiceContract {
   find(id: number): Observable<Rack>;
   get(): Observable<Array<Rack>>;
   store(rack: Rack): Observable<Rack>;
+  delete(id: number): Observable<Array<Rack>>;
 }

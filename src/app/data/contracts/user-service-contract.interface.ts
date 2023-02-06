@@ -7,4 +7,6 @@ export const USER_SERVICE = new InjectionToken<UserServiceContract>('user.servic
 export interface UserServiceContract {
   find(id: number): Observable<User>;
   get(): Observable<Array<User>>;
+  store(user: User): Observable<User>;
+  delete(id: number): Observable<Array<User>>;
 }
