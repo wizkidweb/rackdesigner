@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { WithID } from 'ngx-indexed-db';
 import { map, Observable } from 'rxjs';
-import { HardwareServiceContract } from 'src/app/data/contracts/hardware-service-contracts.interface';
+import { ModelServiceContract } from 'src/app/data/contracts/model-service-contract.interface';
 import { Hardware } from 'src/app/models/hardware.model';
 import { LocalModelService } from '../abstracts/local-model.service';
 import { LocalHardwareApiService } from '../api/hardware-api.service';
@@ -11,7 +11,7 @@ import { HardwareSchema } from '../schemas/hardware.schema';
   providedIn: 'root'
 })
 export class LocalHardwareService extends LocalModelService<Hardware, HardwareSchema>
-  implements HardwareServiceContract {
+  implements ModelServiceContract<Hardware> {
 
   constructor(protected _apiService: LocalHardwareApiService) {
     super();

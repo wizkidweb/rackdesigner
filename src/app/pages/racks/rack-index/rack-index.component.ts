@@ -1,10 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Rack } from 'src/app/models/rack.model';
-import { Device } from 'src/app/models/device.model';
 import { Port } from 'src/app/models/port.model';
 import { Hardware } from 'src/app/models/hardware.model';
-import { Connection } from 'src/app/models/connection.model';
-import { RackServiceContract, RACK_SERVICE } from 'src/app/data/contracts/rack-service-contract.interface';
+import { ModelServiceContract, RACK_SERVICE } from 'src/app/data/contracts/model-service-contract.interface';
 
 @Component({
   selector: 'app-rack-index',
@@ -14,7 +12,7 @@ import { RackServiceContract, RACK_SERVICE } from 'src/app/data/contracts/rack-s
 export class RackIndexComponent implements OnInit {
   public racks: Array<Rack> = [];
 
-  constructor(@Inject(RACK_SERVICE) private _rackService: RackServiceContract) {}
+  constructor(@Inject(RACK_SERVICE) private _rackService: ModelServiceContract<Rack>) {}
 
   public ngOnInit(): void {
     this.load();

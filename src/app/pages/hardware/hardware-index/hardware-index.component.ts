@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { faDeleteLeft, faTrash } from '@fortawesome/pro-duotone-svg-icons';
-import { HardwareServiceContract, HARDWARE_SERVICE } from 'src/app/data/contracts/hardware-service-contracts.interface';
+import { faTrash } from '@fortawesome/pro-duotone-svg-icons';
+import { HARDWARE_SERVICE, ModelServiceContract } from 'src/app/data/contracts/model-service-contract.interface';
 import { Hardware } from 'src/app/models/hardware.model';
 
 @Component({
@@ -10,7 +10,7 @@ import { Hardware } from 'src/app/models/hardware.model';
   styleUrls: ['./hardware-index.component.scss']
 })
 export class HardwareIndexComponent implements OnInit {
-  constructor(@Inject(HARDWARE_SERVICE) private _hardwareService: HardwareServiceContract) {}
+  constructor(@Inject(HARDWARE_SERVICE) private _hardwareService: ModelServiceContract<Hardware>) {}
 
   public hardware: Array<Hardware> = [];
 

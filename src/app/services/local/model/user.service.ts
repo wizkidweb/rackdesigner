@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { UserSchema } from 'src/app/services/local/schemas/user.schema';
 import { User } from 'src/app/models/user.model';
 import { WithID } from 'ngx-indexed-db';
-import { UserServiceContract } from 'src/app/data/contracts/user-service-contract.interface';
 import { LocalModelService } from '../abstracts/local-model.service';
 import { LocalUserApiService } from '../api/user-api.service';
+import { ModelServiceContract } from 'src/app/data/contracts/model-service-contract.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LocalUserService extends LocalModelService<User, UserSchema> implements UserServiceContract {
+export class LocalUserService extends LocalModelService<User, UserSchema> implements ModelServiceContract<User> {
   constructor(protected _apiService: LocalUserApiService) {
     super();
   }
