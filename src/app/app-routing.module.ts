@@ -17,6 +17,10 @@ const routes: Routes = [
         path: 'racks',
         loadChildren: () => import('./pages/racks/rack.module').then(m => m.RackModule),
       },
+      {
+        path: 'hardware',
+        loadChildren: () => import('./pages/hardware/hardware.module').then(m => m.HardwareModule),
+      },
     ],
   },
 ];

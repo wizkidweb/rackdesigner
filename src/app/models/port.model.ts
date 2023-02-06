@@ -1,5 +1,4 @@
-import { Model } from "../abstracts/model";
-import { Hardware } from "./hardware.model";
+import { Model } from "../data/abstracts/model";
 
 export class Port extends Model {
   public id!: number;

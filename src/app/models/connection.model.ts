@@ -1,4 +1,4 @@
-import { Model } from "../abstracts/model";
+import { Model } from "../data/abstracts/model";
 import { Device } from "./device.model";
 import { Port } from "./port.model";
 

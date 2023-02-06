@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Rack } from 'src/app/models/rack.model';
 import { Device } from 'src/app/models/device.model';
 import { Port } from 'src/app/models/port.model';
-import { RackService } from 'src/app/services/model/rack.service';
 import { Hardware } from 'src/app/models/hardware.model';
 import { Connection } from 'src/app/models/connection.model';
+import { RackServiceContract, RACK_SERVICE } from 'src/app/data/contracts/rack-service-contract.interface';
 
 @Component({
   selector: 'app-rack-index',
@@ -14,51 +14,69 @@ import { Connection } from 'src/app/models/connection.model';
 export class RackIndexComponent implements OnInit {
   public racks: Array<Rack> = [];
 
-  constructor(private _rackService: RackService) {}
+  constructor(@Inject(RACK_SERVICE) private _rackService: RackServiceContract) {}
 
   public ngOnInit(): void {
-    this.racks = [
-      Rack.create({
-        id: 1,
-        name: 'Test Rack',
-        size: 20,
-        devices: [
-          Device.create({
-            id: 1,
-            hardware: this._udm(),
-          }),
-          Device.create({
-            id: 2,
-            hardware: this._switch48(),
-          }),
-          Device.create({
-            id: 3,
-            hardware: this._patch24(),
-          }),
-          Device.create({
-            id: 4,
-            hardware: this._switch24PoE(),
-          }),
-        ],
-        connections: [
-          Connection.create({
-            from: { device: Device.create({ id: 1, hardware: this._udm() }), port: this._rj45(8, 27, 1) },
-            to: { device: Device.create({ id: 3, hardware: this._switch48() }), port: this._rj45(23, 27, 0.5) },
-            color: 'red'
-          }),
-          Connection.create({
-            from: { device: Device.create({ id: 1, hardware: this._udm() }), port: this._rj45(10, 28, 1) },
-            to: { device: Device.create({ id: 2, hardware: this._switch48() }), port: this._rj45(49, 28, 0) },
-            color: 'green'
-          }),
-          Connection.create({
-            from: { device: Device.create({ id: 2, hardware: this._switch48() }), port: this._rj45(51, 28, 1) },
-            to: { device: Device.create({ id: 4, hardware: this._switch24PoE() }), port: this._rj45(24, 28, 0) },
-            color: 'green'
-          }),
-        ]
-      })
-    ]
+    this.load();
+
+    // this.racks = [
+    //   Rack.create({
+    //     id: 1,
+    //     name: 'Test Rack',
+    //     size: 20,
+    //     devices: [
+    //       Device.create({
+    //         id: 1,
+    //         hardware: this._udm(),
+    //       }),
+    //       Device.create({
+    //         id: 2,
+    //         hardware: this._switch48(),
+    //       }),
+    //       Device.create({
+    //         id: 3,
+    //         hardware: this._patch24(),
+    //       }),
+    //       Device.create({
+    //         id: 4,
+    //         hardware: this._switch24PoE(),
+    //       }),
+    //     ],
+    //     connections: [
+    //       Connection.create({
+    //         from: { device: Device.create({ id: 1, hardware: this._udm() }), port: this._rj45(8, 27, 1) },
+    //         to: { device: Device.create({ id: 3, hardware: this._switch48() }), port: this._rj45(23, 27, 0.5) },
+    //         color: 'red'
+    //       }),
+    //       Connection.create({
+    //         from: { device: Device.create({ id: 1, hardware: this._udm() }), port: this._rj45(10, 28, 1) },
+    //         to: { device: Device.create({ id: 2, hardware: this._switch48() }), port: this._rj45(49, 28, 0) },
+    //         color: 'green'
+    //       }),
+    //       Connection.create({
+    //         from: { device: Device.create({ id: 2, hardware: this._switch48() }), port: this._rj45(51, 28, 1) },
+    //         to: { device: Device.create({ id: 4, hardware: this._switch24PoE() }), port: this._rj45(24, 28, 0) },
+    //         color: 'green'
+    //       }),
+    //     ]
+    //   })
+    // ]
+  }
+
+  public load() {
+    this._rackService.get().subscribe(racks => this.racks = racks);
+  }
+
+  public createRack() {
+    const rack = Rack.create({
+      name: 'Foobar',
+      size: 20,
+    });
+
+    this._rackService.store(rack).subscribe(newRack => {
+      console.log('New Rack', rack);
+      this.load();
+    });
   }
 
   private _blankPlate(): Hardware {
@@ -107,7 +125,7 @@ export class RackIndexComponent implements OnInit {
         ...this._rj45Group(6, 6, 8.25, 0.5, 6),
         ...this._rj45Group(6, 6, 15.5, 0.5, 12),
         ...this._rj45Group(6, 6, 22.75, 0.5, 18),
-      ]
+      ],
     })
   }
 

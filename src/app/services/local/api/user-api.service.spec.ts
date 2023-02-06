@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RackApiService } from './rack-api.service';
+import { LocalUserApiService } from './user-api.service';
 
-describe('RackApiService', () => {
-  let service: RackApiService;
+describe('UserApiService', () => {
+  let service: LocalUserApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RackApiService);
+    service = TestBed.inject(LocalUserApiService);
   });
 
   it('should be created', () => {
