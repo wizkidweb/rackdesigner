@@ -1,42 +1,44 @@
 <h1>Users</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <th scope="row">{{ user.id }}</th>
-      <td>{{ user.name }}</td>
-      <td>{{ user.email }}</td>
-      <td>
-        <button type="button" class="btn btn-danger btn-sm" *ngIf="user.id" (click)="remove(user.id)">
-          <fa-icon [icon]="faTrash"></fa-icon>
-        </button>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5">
-        <strong>Create New User</strong>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="text" class="form-control" [formControl]="name" placeholder="Name">
-      </td>
-      <td>
-        <input type="text" class="form-control" [formControl]="email" placeholder="Email">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5" class="text-end">
-        <button type="button" class="btn btn-primary" (click)="add()">Add</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<app-loading-spinner *ngIf="loading; else loaded"></app-loading-spinner>
+
+<ng-template #loaded>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <th scope="row">{{ user.id }}</th>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <button type="button" class="btn btn-danger btn-sm" *ngIf="user.id" (click)="remove(user.id)">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <strong>Create New User</strong>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="text" class="form-control" [formControl]="name" placeholder="Name">
+        </td>
+        <td>
+          <input type="text" class="form-control" [formControl]="email" placeholder="Email">
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="add()">Add</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>

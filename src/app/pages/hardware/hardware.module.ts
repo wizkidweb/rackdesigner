@@ -6,6 +6,7 @@ import { PagesModule } from '../pages.module';
 import { HardwareRoutingModule } from './hardware-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HardwareRoutingModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    SharedModule,
   ]
 })
 export class HardwareModule { }

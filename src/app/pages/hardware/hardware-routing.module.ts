@@ -7,19 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: HardwareIndexComponent,
-    data: {
-      title: 'Hardware',
-    },
-    children: [
-      {
-        path: '',
-        component: HardwareIndexComponent,
-      },
-      {
-        path: ':id',
-        component: HardwareDetailsComponent,
-      },
-    ],
+  },
+  {
+    path: ':id',
+    component: HardwareDetailsComponent,
   },
 ];
 

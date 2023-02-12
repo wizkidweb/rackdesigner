@@ -4,7 +4,8 @@ import { Port } from 'src/app/models/port.model';
 import { Hardware } from 'src/app/models/hardware.model';
 import { ModelServiceContract, RACK_SERVICE } from 'src/app/data/contracts/model-service-contract.interface';
 import { FormControl } from '@angular/forms';
-import { faTrash } from '@fortawesome/pro-duotone-svg-icons';
+import { faPenToSquare, faTrash } from '@fortawesome/pro-duotone-svg-icons';
+import { finalize, tap } from 'rxjs';
 
 @Component({
   selector: 'app-rack-index',
@@ -13,6 +14,8 @@ import { faTrash } from '@fortawesome/pro-duotone-svg-icons';
 })
 export class RackIndexComponent implements OnInit {
   public racks: Array<Rack> = [];
+
+  public loading = true;
 
   public name = new FormControl('');
   public size = new FormControl('');
@@ -69,7 +72,13 @@ export class RackIndexComponent implements OnInit {
   }
 
   public load() {
-    this._rackService.get().subscribe(racks => this.racks = racks);
+    this.loading = true;
+    this.racks = [];
+
+    this._rackService.get().pipe(
+      tap(racks => this.racks = racks),
+      finalize(() => this.loading = false),
+    ).subscribe();
   }
 
   public add(): void {

@@ -3,29 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    data: {
-      title: 'Home',
-    },
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'objects',
-      },
-      {
-        path: 'racks',
-        loadChildren: () => import('./pages/racks/rack.module').then(m => m.RackModule),
-      },
-      {
-        path: 'hardware',
-        loadChildren: () => import('./pages/hardware/hardware.module').then(m => m.HardwareModule),
-      },
-      {
-        path: 'users',
-        loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule),
-      },
-    ],
+    path: 'racks',
+    loadChildren: () => import('./pages/racks/rack.module').then(m => m.RackModule),
+  },
+  {
+    path: 'hardware',
+    loadChildren: () => import('./pages/hardware/hardware.module').then(m => m.HardwareModule),
+  },
+  {
+    path: 'users',
+    loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule),
   },
 ];
 

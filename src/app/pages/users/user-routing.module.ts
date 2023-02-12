@@ -7,19 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: UserIndexComponent,
-    data: {
-      title: 'Users',
-    },
-    children: [
-      {
-        path: '',
-        component: UserIndexComponent,
-      },
-      {
-        path: ':id',
-        component: UserDetailsComponent,
-      },
-    ],
+  },
+  {
+    path: ':id',
+    component: UserDetailsComponent,
   },
 ];
 

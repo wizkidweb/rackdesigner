@@ -1,42 +1,44 @@
 <h1>Racks</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">Size (U)</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let rack of racks">
-      <th scope="row">{{ rack.id }}</th>
-      <td>{{ rack.name }}</td>
-      <td>{{ rack.size }}U</td>
-      <td>
-        <button type="button" class="btn btn-danger btn-sm" *ngIf="rack.id" (click)="remove(rack.id)">
-          <fa-icon [icon]="faTrash"></fa-icon>
-        </button>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5">
-        <strong>Create New Rack</strong>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="text" class="form-control" [formControl]="name" placeholder="Name">
-      </td>
-      <td>
-        <input type="number" class="form-control" [formControl]="size" placeholder="Size">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5" class="text-end">
-        <button type="button" class="btn btn-primary" (click)="add()">Add</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<app-loading-spinner *ngIf="loading; else loaded"></app-loading-spinner>
+
+<ng-template #loaded>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Size (U)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rack of racks">
+        <th scope="row">{{ rack.id }}</th>
+        <td>{{ rack.name }}</td>
+        <td>{{ rack.size }}U</td>
+        <td>
+          <button type="button" class="btn btn-danger btn-sm" *ngIf="rack.id" (click)="remove(rack.id)">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <strong>Create New Rack</strong>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="text" class="form-control" [formControl]="name" placeholder="Name">
+        </td>
+        <td>
+          <input type="number" class="form-control" [formControl]="size" placeholder="Size">
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="add()">Add</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>

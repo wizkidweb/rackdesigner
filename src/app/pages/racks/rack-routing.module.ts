@@ -7,19 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: RackIndexComponent,
-    data: {
-      title: 'Racks',
-    },
-    children: [
-      {
-        path: '',
-        component: RackIndexComponent,
-      },
-      {
-        path: ':id',
-        component: RackDetailsComponent,
-      },
-    ],
+  },
+  {
+    path: ':id',
+    component: RackDetailsComponent,
   },
 ];
 

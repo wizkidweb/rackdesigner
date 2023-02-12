@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { faTrash } from '@fortawesome/pro-duotone-svg-icons';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { finalize, tap } from 'rxjs';
 import { HARDWARE_SERVICE, ModelServiceContract } from 'src/app/data/contracts/model-service-contract.interface';
 import { Hardware } from 'src/app/models/hardware.model';
 
@@ -14,19 +15,28 @@ export class HardwareIndexComponent implements OnInit {
 
   public hardware: Array<Hardware> = [];
 
+  public loading = true;
+
   public name = new FormControl('');
   public size = new FormControl('');
   public maxDraw = new FormControl('');
   public color = new FormControl('');
 
   public faTrash = faTrash;
+  public faPenToSquare = faPenToSquare;
 
   public ngOnInit(): void {
     this.load();
   }
 
   public load() {
-    this._hardwareService.get().subscribe(hardware => this.hardware = hardware);
+    this.loading = true;
+    this.hardware = [];
+
+    this._hardwareService.get().pipe(
+      tap(hardware => this.hardware = hardware),
+      finalize(() => this.loading = false),
+    ).subscribe();
   }
 
   public add(): void {

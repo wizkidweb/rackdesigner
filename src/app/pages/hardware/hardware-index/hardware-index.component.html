@@ -1,52 +1,60 @@
 <h1>Hardware</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">Size (U)</th>
-      <th scope="col">Max Power Draw</th>
-      <th scope="col">Color</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let h of hardware">
-      <th scope="row">{{ h.id }}</th>
-      <td>{{ h.name }}</td>
-      <td>{{ h.size }}U</td>
-      <td>{{ h.maxDraw }}W</td>
-      <td>{{ h.color }}</td>
-      <td>
-        <button type="button" class="btn btn-danger btn-sm" *ngIf="h.id" (click)="remove(h.id)">
-          <fa-icon [icon]="faTrash"></fa-icon>
-        </button>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5">
-        <strong>Create New Hardware</strong>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="text" class="form-control" [formControl]="name" placeholder="Name">
-      </td>
-      <td>
-        <input type="number" class="form-control" [formControl]="size" placeholder="Size">
-      </td>
-      <td>
-        <input type="number" class="form-control" [formControl]="maxDraw" placeholder="Max Power Draw">
-      </td>
-      <td>
-        <input type="string" class="form-control" [formControl]="color" placeholder="Color">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5" class="text-end">
-        <button type="button" class="btn btn-primary" (click)="add()">Add</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<app-loading-spinner *ngIf="loading; else loaded"></app-loading-spinner>
+
+<ng-template #loaded>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Size (U)</th>
+        <th scope="col">Max Power Draw</th>
+        <th scope="col">Color</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let h of hardware">
+        <th scope="row">{{ h.id }}</th>
+        <td>{{ h.name }}</td>
+        <td>{{ h.size }}U</td>
+        <td>{{ h.maxDraw }}W</td>
+        <td>{{ h.color }}</td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Actions">
+            <button type="button" class="btn btn-outline-info btn-sm d-inline-block mr-1" [routerLink]="'/hardware/' + h.id">
+              <fa-icon [icon]="faPenToSquare"></fa-icon>
+            </button>
+  
+            <button type="button" class="btn btn-outline-danger btn-sm" *ngIf="h.id" (click)="remove(h.id)">
+              <fa-icon [icon]="faTrash"></fa-icon>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <strong>Create New Hardware</strong>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="text" class="form-control" [formControl]="name" placeholder="Name">
+        </td>
+        <td>
+          <input type="number" class="form-control" [formControl]="size" placeholder="Size">
+        </td>
+        <td>
+          <input type="number" class="form-control" [formControl]="maxDraw" placeholder="Max Power Draw">
+        </td>
+        <td>
+          <input type="string" class="form-control" [formControl]="color" placeholder="Color">
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="add()">Add</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
