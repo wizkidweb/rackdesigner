@@ -42,6 +42,7 @@ export const dbConfig: DBConfig = {
       store: 'ports',
       storeConfig: { keyPath: 'id', autoIncrement: true },
       storeSchema: [
+        { name: 'hardware_id', keypath: 'hardware_id', options: { unique: false } },
         { name: 'type', keypath: 'type', options: { unique: false } },
         { name: 'xPos', keypath: 'xPos', options: { unique: false } },
         { name: 'yPos', keypath: 'yPos', options: { unique: false } },

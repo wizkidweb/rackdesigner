@@ -6,12 +6,17 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { RackConnectionComponent } from './rack-connection/rack-connection.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BadgeComponent } from './badge/badge.component';
+import { FormsModule } from '@angular/forms';
+import { RackHardwareComponent } from './rack-hardware/rack-hardware.component';
 
 const components = [
   RackPreviewComponent,
   RackPortComponent,
   RackConnectionComponent,
+  RackHardwareComponent,
   LoadingSpinnerComponent,
+  BadgeComponent,
 ];
 
 @NgModule({
@@ -20,6 +25,7 @@ const components = [
     CommonModule,
     PopoverModule.forRoot(),
     FontAwesomeModule,
+    FormsModule,
   ],
   exports: components,
 })

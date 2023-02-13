@@ -1,0 +1,21 @@
+<span class="badge" [ngClass]="classes" (click)="edit()">
+  <ng-template *ngIf="valueTemplate; else defaultValue" [ngTemplateOutlet]="valueTemplate" [ngTemplateOutletContext]="{ $implicit: value }"></ng-template>
+  <ng-template #defaultValue>
+    <ng-content></ng-content>
+    {{ value }}
+  </ng-template>
+
+  <fa-icon *ngIf="editable" [icon]="faPen" class="edit-icon"></fa-icon>
+
+  <div class="edit-area shadow" *ngIf="editable">
+    <div class="edit-area-content">
+      <div class="edit-area-title" *ngIf="label">{{ label }}</div>
+      <div class="input-group">
+        <input type="text" [value]="value" class="form-control form-control-sm" [(ngModel)]="valueTerm">
+        <button type="button" class="btn btn-sm btn-success" (click)="save($event)">
+          <fa-icon [icon]="faCheck"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</span>

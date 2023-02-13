@@ -29,6 +29,13 @@ export abstract class LocalModelService<M extends Model, Schema> extends ModelSe
     );
   }
 
+  public getByIndex(index: string, id: number): Observable<Array<M>> {
+    return this._apiService.getByIndex(index, id).pipe(
+      map(res => this._deserializeArray(res)),
+      delay(200),
+    );
+  }
+
   public store(model: M): Observable<M> {
     return this._apiService.store(this._serialize(model)).pipe(
       map(res => this._deserialize(res)),

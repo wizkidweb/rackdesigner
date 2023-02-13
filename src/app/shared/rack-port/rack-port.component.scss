@@ -1,11 +1,13 @@
+@import "../../data/scss/base";
+
 :host {
   position: absolute;
 }
 
 .rack-port {
   position: absolute;
-  width: 1.45em;
-  height: 1.6em;
+  width: cm(1.45);
+  height: cm(1.6);
   background-color: #999;
   border: 1px solid #333;
   text-align: center;
@@ -13,5 +15,15 @@
 
   &:hover {
     border: 1px solid #fff;
+  }
+
+  @for $i from 1 through 40 {
+    &.xpos-#{$i} {
+      left: cm(1.45 * $i);
+    }
+
+    &.ypos-#{$i} {
+      top: cm(1.6 * $i);
+    }
   }
 }

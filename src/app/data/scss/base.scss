@@ -1,0 +1,11 @@
+@import "bootstrap/scss/bootstrap-utilities";
+
+$cm-scale: 10px !default;
+
+@function cm($size) {
+  @return $size * $cm-scale;
+}
+
+@function in($size) {
+  @return cm($size * 2.54);
+}

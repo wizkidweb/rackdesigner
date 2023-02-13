@@ -1,0 +1,21 @@
+@import "../../data/scss/base.scss";
+
+.hardware {
+  position: relative;
+  background-color: #666;
+  width: in(19);
+
+  @for $i from 1 through 40 {
+    &.size-#{$i}u {
+      height: in(1.75 * $i);
+    }
+  }
+
+  .ports {
+    position: absolute;
+    top: cm(0.5);
+    right: cm(1);
+    bottom: cm(0.5);
+    left: cm(1);
+  }
+}

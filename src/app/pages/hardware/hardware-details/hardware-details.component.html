@@ -1,1 +1,91 @@
-<p>hardware-details works!</p>
+<app-loading-spinner *ngIf="loading; else loaded"></app-loading-spinner>
+
+<ng-template #loaded>
+  <form [formGroup]="hardwareForm">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1>{{ hardware.name }}</h1>
+      <button type="button" class="btn btn-primary btn-inline-block">Save</button>
+    </div>
+    <h5>
+      <app-badge>ID: {{ hardware.id }}</app-badge>
+      <app-badge
+        [editable]="true"
+        [color]="BS_COLORS.primary"
+        formControlName="size"
+        label="Size"
+      >
+        <ng-template let-value>{{ value }}U</ng-template>
+      </app-badge>
+    </h5>
+
+    <div class="row">
+      <div class="col-8">
+        <app-rack-hardware
+          [size]="hardwareForm.controls.size.value || 1"
+          [ports]="ports"
+        ></app-rack-hardware>
+      </div>
+      <div class="col-4">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Position</th>
+              <th>Type</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let port of ports">
+              <td>{{ port.id }}</td>
+              <td>{{ port.xPos }}, {{ port.yPos }}</td>
+              <td>{{ port.type }}</td>
+              <td>
+                <button type="button" class="btn btn-outline-danger btn-sm" *ngIf="port.id" (click)="removePort(port.id)">
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+              </td>
+            </tr>
+            <tr formGroupName="ports">
+              <td>
+                <input
+                  type="number" 
+                  class="form-control form-control-sm"
+                  [class.is-invalid]="hardwareForm.get('ports.xPos')?.invalid"
+                  placeholder="X Position"
+                  formControlName="xPos"
+                >
+              </td>
+              <td>
+                <input
+                  type="number" 
+                  class="form-control form-control-sm"
+                  [class.is-invalid]="hardwareForm.get('ports.yPos')?.invalid"
+                  placeholder="Y Position"
+                  formControlName="yPos"
+                >
+              </td>
+              <td>
+                <input
+                  type="text" 
+                  class="form-control form-control-sm"
+                  [class.is-invalid]="hardwareForm.get('ports.type')?.invalid"
+                  placeholder="Type"
+                  formControlName="type"
+                >
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-primary"
+                  [disabled]="hardwareForm.get('ports')?.invalid"
+                  (click)="addPort()"
+                >Add</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </form>
+</ng-template>

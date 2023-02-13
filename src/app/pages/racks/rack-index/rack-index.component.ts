@@ -94,102 +94,102 @@ export class RackIndexComponent implements OnInit {
     this._rackService.delete(id).subscribe(racks => this.racks = racks);
   }
 
-  private _blankPlate(): Hardware {
-    return Hardware.create({
-      id: 1,
-      name: 'Blank Plate',
-      size: 1,
-      ports: [],
-      color: '#666',
-    });
-  }
+  // private _blankPlate(): Hardware {
+  //   return Hardware.create({
+  //     id: 1,
+  //     name: 'Blank Plate',
+  //     size: 1,
+  //     ports: [],
+  //     color: '#666',
+  //   });
+  // }
 
-  private _udm(): Hardware {
-    return Hardware.create({
-      id: 2,
-      name: 'UDM Pro',
-      size: 1,
-      ports: [
-        ...this._rj45Group(8, 4, 22),
-        this._rj45(8, 27, 1),
-        this._sfp(9, 28, 0),
-        this._sfp(10, 28, 1),
-      ],
-    });
-  }
+  // private _udm(): Hardware {
+  //   return Hardware.create({
+  //     id: 2,
+  //     name: 'UDM Pro',
+  //     size: 1,
+  //     ports: [
+  //       ...this._rj45Group(8, 4, 22),
+  //       this._rj45(8, 27, 1),
+  //       this._sfp(9, 28, 0),
+  //       this._sfp(10, 28, 1),
+  //     ],
+  //   });
+  // }
 
-  private _switch48(): Hardware {
-    return Hardware.create({
-      id: 3,
-      name: 'Switch 48',
-      size: 1,
-      ports: [
-        ...this._rj45Group(48, 24, 2),
-        ...this._sfpGroup(4, 2, 27, 0, 48)
-      ],
-    })
-  }
+  // private _switch48(): Hardware {
+  //   return Hardware.create({
+  //     id: 3,
+  //     name: 'Switch 48',
+  //     size: 1,
+  //     ports: [
+  //       ...this._rj45Group(48, 24, 2),
+  //       ...this._sfpGroup(4, 2, 27, 0, 48)
+  //     ],
+  //   })
+  // }
 
-  private _patch24(): Hardware {
-    return Hardware.create({
-      id: 4,
-      name: 'Patch Panel 24',
-      size: 1,
-      ports: [
-        ...this._rj45Group(6, 6, 1, 0.5),
-        ...this._rj45Group(6, 6, 8.25, 0.5, 6),
-        ...this._rj45Group(6, 6, 15.5, 0.5, 12),
-        ...this._rj45Group(6, 6, 22.75, 0.5, 18),
-      ],
-    })
-  }
+  // private _patch24(): Hardware {
+  //   return Hardware.create({
+  //     id: 4,
+  //     name: 'Patch Panel 24',
+  //     size: 1,
+  //     ports: [
+  //       ...this._rj45Group(6, 6, 1, 0.5),
+  //       ...this._rj45Group(6, 6, 8.25, 0.5, 6),
+  //       ...this._rj45Group(6, 6, 15.5, 0.5, 12),
+  //       ...this._rj45Group(6, 6, 22.75, 0.5, 18),
+  //     ],
+  //   })
+  // }
 
-  private _switch24PoE(): Hardware {
-    return Hardware.create({
-      id: 5,
-      name: 'Switch 24',
-      size: 1,
-      ports: [
-        ...this._rj45Group(24, 12, 14, 0, 0, 32),
-        this._sfp(24, 28, 0),
-        this._sfp(25, 28, 1),
-      ]
-    })
-  }
+  // private _switch24PoE(): Hardware {
+  //   return Hardware.create({
+  //     id: 5,
+  //     name: 'Switch 24',
+  //     size: 1,
+  //     ports: [
+  //       ...this._rj45Group(24, 12, 14, 0, 0, 32),
+  //       this._sfp(24, 28, 0),
+  //       this._sfp(25, 28, 1),
+  //     ]
+  //   })
+  // }
 
-  private _rj45Group(count: number, rowSize: number, x = 0, y = 0, startIndex = 0, power?: number): Array<Port> {
-    return [...Array(count).keys()].map(i => this._rj45(
-      i + startIndex,
-      (i % rowSize) + x,
-      Math.floor(i / rowSize) + y,
-      power
-    ));
-  }
+  // private _rj45Group(count: number, rowSize: number, x = 0, y = 0, startIndex = 0, power?: number): Array<Port> {
+  //   return [...Array(count).keys()].map(i => this._rj45(
+  //     i + startIndex,
+  //     (i % rowSize) + x,
+  //     Math.floor(i / rowSize) + y,
+  //     power
+  //   ));
+  // }
 
-  private _rj45(id: number, x: number, y: number, power?: number): Port {
-    return Port.create({
-      id: id,
-      type: 'rj45',
-      xPos: x,
-      yPos: y,
-      output: power
-    });
-  }
+  // private _rj45(id: number, x: number, y: number, power?: number): Port {
+  //   return Port.create({
+  //     id: id,
+  //     type: 'rj45',
+  //     xPos: x,
+  //     yPos: y,
+  //     output: power
+  //   });
+  // }
 
-  private _sfpGroup(count: number, rowSize: number, x = 0, y = 0, startIndex = 0): Array<Port> {
-    return [...Array(count).keys()].map(i => this._sfp(
-      i + startIndex,
-      (i % rowSize) + x,
-      Math.floor(i / rowSize) + y,
-    ));
-  }
+  // private _sfpGroup(count: number, rowSize: number, x = 0, y = 0, startIndex = 0): Array<Port> {
+  //   return [...Array(count).keys()].map(i => this._sfp(
+  //     i + startIndex,
+  //     (i % rowSize) + x,
+  //     Math.floor(i / rowSize) + y,
+  //   ));
+  // }
 
-  private _sfp(id: number, x: number, y: number): Port {
-    return Port.create({
-      id: id,
-      type: 'sfp+',
-      xPos: x,
-      yPos: y,
-    });
-  }
+  // private _sfp(id: number, x: number, y: number): Port {
+  //   return Port.create({
+  //     id: id,
+  //     type: 'sfp+',
+  //     xPos: x,
+  //     yPos: y,
+  //   });
+  // }
 }

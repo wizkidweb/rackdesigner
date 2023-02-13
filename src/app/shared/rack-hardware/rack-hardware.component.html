@@ -1,0 +1,5 @@
+<div class="hardware" [ngClass]="'size-' + size + 'u'">
+  <div class="ports">
+    <app-rack-port *ngFor="let port of ports" [port]="port"></app-rack-port>
+  </div>
+</div>

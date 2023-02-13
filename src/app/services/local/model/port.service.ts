@@ -16,6 +16,7 @@ export class LocalPortService extends LocalModelService<Port, PortSchema> implem
 
   protected _serialize(input: Port): PortSchema {
     return {
+      hardware_id: input.hardware_id,
       type: input.type,
       xPos: input.xPos.toString(),
       yPos: input.yPos.toString(),
@@ -26,6 +27,7 @@ export class LocalPortService extends LocalModelService<Port, PortSchema> implem
   protected _deserialize(input: PortSchema & WithID): Port {
     return Port.create({
       id: input.id,
+      hardware_id: input.hardware_id,
       type: input.type,
       xPos: parseInt(input.xPos),
       yPos: parseInt(input.yPos),

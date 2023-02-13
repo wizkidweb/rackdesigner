@@ -1,7 +1,7 @@
 <div
   #portRef
   class="rack-port"
-  [ngStyle]="{ top: xPos(port.yPos), left: yPos(port.xPos) }"
+  [ngClass]="[ 'xpos-' + port.xPos, 'ypos-' + port.yPos ]"
   [popover]="portPopover"
   [popoverTitle]="'Port ID ' + port.id"
   triggers="mouseenter:mouseleave"

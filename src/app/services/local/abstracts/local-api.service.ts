@@ -18,6 +18,10 @@ export abstract class LocalApiService<Schema> {
     return this._dbService.getAll(this.storeName);
   }
 
+  public getByIndex(index: string, id: number): Observable<Array<Schema & WithID>> {
+    return this._dbService.getAllByIndex(this.storeName, index, IDBKeyRange.only(id));
+  }
+
   public store(data: Schema): Observable<Schema & WithID> {
     return this._dbService.add(this.storeName, data);
   }
