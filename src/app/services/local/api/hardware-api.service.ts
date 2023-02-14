@@ -6,5 +6,8 @@ import { LocalApiService } from '../abstracts/local-api.service';
   providedIn: 'root'
 })
 export class LocalHardwareApiService extends LocalApiService<HardwareSchema> {
+  /**
+   * @inheritDoc
+   */
   protected storeName = 'hardware';
 }

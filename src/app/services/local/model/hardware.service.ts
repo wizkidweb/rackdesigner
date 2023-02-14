@@ -6,15 +6,20 @@ import { Hardware } from 'src/app/models/hardware.model';
 import { Port } from 'src/app/models/port.model';
 import { LocalModelService } from '../abstracts/local-model.service';
 import { LocalHardwareApiService } from '../api/hardware-api.service';
-import { LocalPortApiService } from '../api/port-api.service';
 import { HardwareSchema } from '../schemas/hardware.schema';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LocalHardwareService extends LocalModelService<Hardware, HardwareSchema>
+export class LocalHardwareService
+  extends LocalModelService<Hardware, HardwareSchema>
   implements ModelServiceContract<Hardware> {
 
+  /**
+   * Creates a new instance of local hardware service.
+   * @param _apiService The local hardware API service.
+   * @param _portService A dynamically-injected copy of the port service defined in the module.
+   */
   constructor(
     protected _apiService: LocalHardwareApiService,
     @Inject(PORT_SERVICE) protected _portService: ModelServiceContract<Port>,
@@ -22,12 +27,21 @@ export class LocalHardwareService extends LocalModelService<Hardware, HardwareSc
     super();
   }
 
+  /**
+   * Queries for and adds port data to the loaded hardware.
+   * @inheritDoc
+   */
   public override find(id: number): Observable<Hardware> {
     return super.find(id).pipe(
       mergeMap(hardware => this._addPorts(hardware)),
     );
   }
 
+  /**
+   * Queries for ports and adds to the given hardware.
+   * @param hardware The hardware the ports are being added to.
+   * @returns An observable with hardware with ports added.
+   */
   protected _addPorts(hardware: Hardware): Observable<Hardware> {
     if (!hardware.id) {
       return throwError(() => new Error('Hardware ID is invalid!'));
@@ -39,6 +53,9 @@ export class LocalHardwareService extends LocalModelService<Hardware, HardwareSc
     );
   }
 
+  /**
+   * @inheritDoc
+   */
   protected _serialize(input: Hardware): HardwareSchema {
     return {
       name: input.name,
@@ -48,6 +65,9 @@ export class LocalHardwareService extends LocalModelService<Hardware, HardwareSc
     }
   }
 
+  /**
+   * @inheritDoc
+   */
   protected _deserialize(input: HardwareSchema & WithID): Hardware {
     return Hardware.create({
       id: input.id,

@@ -38,18 +38,18 @@
           <strong>Create New Hardware</strong>
         </td>
       </tr>
-      <tr>
+      <tr [formGroup]="hardwareForm">
         <td colspan="2">
-          <input type="text" class="form-control" [formControl]="name" placeholder="Name">
+          <input type="text" class="form-control" formControlName="name" placeholder="Name">
         </td>
         <td>
-          <input type="number" class="form-control" [formControl]="size" placeholder="Size">
+          <input type="number" class="form-control" formControlName="size" placeholder="Size">
         </td>
         <td>
-          <input type="number" class="form-control" [formControl]="maxDraw" placeholder="Max Power Draw">
+          <input type="number" class="form-control" formControlName="maxDraw" placeholder="Max Power Draw">
         </td>
         <td>
-          <input type="string" class="form-control" [formControl]="color" placeholder="Color">
+          <input type="string" class="form-control" formControlName="color" placeholder="Color">
         </td>
         <td>
           <button type="button" class="btn btn-primary" (click)="add()">Add</button>

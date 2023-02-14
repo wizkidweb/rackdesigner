@@ -1,7 +1,5 @@
-import { Component, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { faEthernet } from '@fortawesome/pro-duotone-svg-icons';
-import { DevicePort } from 'src/app/models/connection.model';
-import { Device } from 'src/app/models/device.model';
 import { Port } from 'src/app/models/port.model';
 
 @Component({
@@ -10,18 +8,20 @@ import { Port } from 'src/app/models/port.model';
   styleUrls: ['./port.component.scss'],
 })
 export class PortComponent {
+  /**
+   * @see {@link faEthernet}
+   */
+  public readonly faEthernet = faEthernet;
+
+  /**
+   * The related port model.
+   */
   @Input()
   public port!: Port;
 
-  @Input()
-  public device!: Device;
-
-  @Output()
-  public selected: EventEmitter<DevicePort> = new EventEmitter<DevicePort>();
-
-  @ViewChild('portRef')
-  public portRef!: ElementRef;
-
+  /**
+   * Defines the CSS classes for the host component.
+   */
   @HostBinding('class')
   public get classes(): string {
     if (this.port) {
@@ -29,11 +29,5 @@ export class PortComponent {
     }
 
     return '';
-  }
-
-  public faEthernet = faEthernet;
-
-  public emitPortDevice(): void {
-    this.selected.emit({ device: this.device, port: this.port });
   }
 }

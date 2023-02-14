@@ -10,10 +10,17 @@ import { ModelServiceContract } from 'src/app/data/contracts/model-service-contr
   providedIn: 'root'
 })
 export class LocalUserService extends LocalModelService<User, UserSchema> implements ModelServiceContract<User> {
+  /**
+   * Creates a new instance of local user service.
+   * @param _apiService The local user API service.
+   */
   constructor(protected _apiService: LocalUserApiService) {
     super();
   }
 
+  /**
+   * @inheritDoc
+   */
   protected _serialize(input: User): UserSchema {
     return {
       name: input.name,
@@ -21,6 +28,9 @@ export class LocalUserService extends LocalModelService<User, UserSchema> implem
     };
   }
 
+  /**
+   * @inheritDoc
+   */
   protected _deserialize(input: UserSchema & WithID): User {
     return User.create({
       id: input.id,

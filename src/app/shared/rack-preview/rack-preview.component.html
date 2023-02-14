@@ -6,7 +6,7 @@
     [ngStyle]="{ 'background-color': device.hardware.color }"
   >
     <div class="rack-ports">
-      <app-port *ngFor="let port of device.hardware.ports" [port]="port" [device]="device" (selected)="setConnectionNode($event)"></app-port>
+      <!-- <app-port *ngFor="let port of device.hardware.ports" [port]="port" [device]="device" (selected)="setConnectionNode($event)"></app-port> -->
     </div>
   </div>
 </div>

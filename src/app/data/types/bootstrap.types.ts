@@ -1,3 +1,6 @@
+/**
+ * A list of Bootstrap 5 color values.
+ */
 export enum BootstrapColor {
   primary = 'primary',
   secondary = 'secondary',

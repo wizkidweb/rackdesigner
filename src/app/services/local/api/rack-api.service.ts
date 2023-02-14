@@ -6,5 +6,8 @@ import { LocalApiService } from '../abstracts/local-api.service';
   providedIn: 'root'
 })
 export class LocalRackApiService extends LocalApiService<RackSchema> {
+  /**
+   * @inheritDoc
+   */
   protected storeName = 'racks';
 }

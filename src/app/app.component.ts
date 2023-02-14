@@ -7,9 +7,28 @@ import { faHouse, faMapLocation, faServer, faComputerClassic, faUsers } from '@f
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  public faHouse = faHouse;
-  public faMapLocation = faMapLocation;
-  public faServer = faServer;
-  public faComputerClassic = faComputerClassic;
-  public faUsers = faUsers;
+  /**
+   * @see {@link faHouse}
+   */
+  public readonly faHouse = faHouse;
+
+  /**
+   * @see {@link faMapLocation}
+   */
+  public readonly faMapLocation = faMapLocation;
+
+  /**
+   * @see {@link faServer}
+   */
+  public readonly faServer = faServer;
+
+  /**
+   * @see {@link faComputerClassic}
+   */
+  public readonly faComputerClassic = faComputerClassic;
+
+  /**
+   * @see {@link faUsers}
+   */
+  public readonly faUsers = faUsers;
 }

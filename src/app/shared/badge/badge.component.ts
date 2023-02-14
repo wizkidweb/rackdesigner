@@ -16,32 +16,80 @@ import { BootstrapColor } from 'src/app/data/types/bootstrap.types';
   ],
 })
 export class BadgeComponent implements OnChanges, ControlValueAccessor {
+  /**
+   * @see {@link faPen}
+   */
+  public readonly faPen = faPen;
+
+  /**
+   * @see {@link faCheck}
+   */
+  public readonly faCheck = faCheck;
+
+  /**
+   * The badge color.
+   * @see {@link BootstrapColor}
+   */
   @Input()
   public color: BootstrapColor = BootstrapColor.secondary;
 
+  /**
+   * If true, then the badge will be pill-shaped.
+   */
   @Input()
   public pill: boolean = false;
 
+  /**
+   * If true, the badge will be editable and act as a form control.
+   */
   @Input()
   public editable: boolean = false;
 
+  /**
+   * The label to display when editing the badge.
+   */
   @Input()
   public label!: string;
 
+  /**
+   * The value template for content projection.
+   */
   @ContentChild(TemplateRef) valueTemplate!: TemplateRef<any>;
 
+  /**
+   * The callback defined when the value is changed.
+   * @param value The value that was changed.
+   */
   public onChange = (value: string) => {};
+
+  /**
+   * The callback defined when the value is touched.
+   */
   public onTouched = () => {};
   
+  /**
+   * If the value has been touched, this will be true.
+   */
   public touched = false;
+
+  /**
+   * Determines if the value is disabled.
+   */
   public disabled = false;
 
-  public faPen = faPen;
-  public faCheck = faCheck;
-
+  /**
+   * If true, the editor is visible.
+   */
   public editing = false;
 
+  /**
+   * The value displayed in the badge.
+   */
   public value: string = '';
+
+  /**
+   * The value displayed in the edit box.
+   */
   public valueTerm: string = '';
 
   /**
@@ -56,24 +104,42 @@ export class BadgeComponent implements OnChanges, ControlValueAccessor {
     };
   }
 
+  /**
+   * When value is changed, update the edit box value.
+   * @param changes The property change object.
+   * @see {@link valueTerm}
+   */
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['value']) {
       this.valueTerm = this.value;
     }
   }
 
+  /**
+   * @inheritDoc
+   */
   public writeValue(value: string): void {
     this.value = value;
   }
 
+  /**
+   * @inheritDoc
+   */
   public registerOnChange(fn: (value: string) => any): void {
     this.onChange = fn;
   }
 
+  /**
+   * @inheritDoc
+   */
   public registerOnTouched(fn: () => any): void {
     this.onTouched = fn;
   }
 
+  /**
+   * Marks the value as touched, and runs the defined callback.
+   * @see {@link onTouched}
+   */
   public markAsTouched(): void {
     if (!this.touched) {
       this.onTouched();
@@ -81,16 +147,26 @@ export class BadgeComponent implements OnChanges, ControlValueAccessor {
     }
   }
 
+  /**
+   * @inheritDoc
+   */
   public setDisabledState(disabled: boolean): void {
     this.disabled = disabled;
   }
 
+  /**
+   * Opens the edit box if editable.
+   * @see {@link editable}
+   */
   public edit(): void {
     if (this.editable && !this.editing) {
       this.editing = true;
     }
   }
 
+  /**
+   * Saves the new badge value.
+   */
   public save(e: MouseEvent): void {
     e.stopPropagation();
 

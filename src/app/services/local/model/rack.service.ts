@@ -10,10 +10,17 @@ import { ModelServiceContract } from 'src/app/data/contracts/model-service-contr
   providedIn: 'root',
 })
 export class LocalRackService extends LocalModelService<Rack, RackSchema> implements ModelServiceContract<Rack> {
+  /**
+   * Creates a new instance of local rack service.
+   * @param _apiService The local rack API service.
+   */
   constructor(protected _apiService: LocalRackApiService) {
     super();
   }
 
+  /**
+   * @inheritDoc
+   */
   protected _serialize(input: Rack): RackSchema {
     return {
       name: input.name,
@@ -21,6 +28,9 @@ export class LocalRackService extends LocalModelService<Rack, RackSchema> implem
     }
   }
 
+  /**
+   * @inheritDoc
+   */
   protected _deserialize(input: RackSchema & WithID): Rack {
     return Rack.create({
       id: input.id,

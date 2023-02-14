@@ -6,5 +6,8 @@ import { PortSchema } from '../schemas/port.schema';
   providedIn: 'root'
 })
 export class LocalPortApiService extends LocalApiService<PortSchema> {
+  /**
+   * @inheritDoc
+   */
   protected storeName = 'ports';
 }

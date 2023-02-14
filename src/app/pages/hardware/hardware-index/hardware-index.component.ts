@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { finalize, tap } from 'rxjs';
 import { HARDWARE_SERVICE, ModelServiceContract } from 'src/app/data/contracts/model-service-contract.interface';
@@ -11,24 +11,56 @@ import { Hardware } from 'src/app/models/hardware.model';
   styleUrls: ['./hardware-index.component.scss']
 })
 export class HardwareIndexComponent implements OnInit {
-  constructor(@Inject(HARDWARE_SERVICE) private _hardwareService: ModelServiceContract<Hardware>) {}
+  /**
+   * @see {@link faTrash}
+   */
+  public readonly faTrash = faTrash;
 
+  /**
+   * @see {@link faPenToSquare}
+   */
+  public readonly faPenToSquare = faPenToSquare;
+
+  /**
+   * The loaded hardware list.
+   */
   public hardware: Array<Hardware> = [];
 
+  /**
+   * If true, the loading spinner is displayed.
+   */
   public loading = true;
 
-  public name = new FormControl('');
-  public size = new FormControl('');
-  public maxDraw = new FormControl('');
-  public color = new FormControl('');
+  /**
+   * The form group for creating new hardware.
+   */
+  public hardwareForm = this.fb.group({
+    name: [''],
+    size: [''],
+    maxDraw: [''],
+    color: [''],
+  });
 
-  public faTrash = faTrash;
-  public faPenToSquare = faPenToSquare;
-
+  /**
+   * Creates an instance of hardware index component.
+   * @param _hardwareService A dynamically-injected copy of the hardware service defined in the module.
+   * @param fb The form builder service.
+   */
+  constructor(
+    @Inject(HARDWARE_SERVICE) private _hardwareService: ModelServiceContract<Hardware>,
+    private fb: FormBuilder,
+  ) {}
+  
+  /**
+   * Load hardware table when component is initialized.
+   */
   public ngOnInit(): void {
     this.load();
   }
 
+  /**
+   * Clears the current hardware list, and loads new data into it.
+   */
   public load() {
     this.loading = true;
     this.hardware = [];
@@ -39,17 +71,24 @@ export class HardwareIndexComponent implements OnInit {
     ).subscribe();
   }
 
+  /**
+   * Adds a new hardware entity if the form is valid.
+   */
   public add(): void {
-    if (this.name.valid && this.size.valid && this.maxDraw.valid && this.color.valid) {
+    if (this.hardwareForm.valid) {
       this._hardwareService.store(Hardware.create({
-        name: this.name.value || '',
-        size: parseInt(this.size.value || ''),
-        maxDraw: parseInt(this.maxDraw.value || ''),
-        color: this.color.value || '',
+        name: this.hardwareForm.controls.name.value || '',
+        size: parseInt(this.hardwareForm.controls.size.value || ''),
+        maxDraw: parseInt(this.hardwareForm.controls.maxDraw.value || ''),
+        color: this.hardwareForm.controls.color.value || '',
       })).subscribe(() => this.load());
     }
   }
 
+  /**
+   * Removes the hardware entity with the given ID.
+   * @param id The primary ID of the hardware entity to remove.
+   */
   public remove(id: number): void {
     this._hardwareService.delete(id).subscribe(hardware => this.hardware = hardware);
   }

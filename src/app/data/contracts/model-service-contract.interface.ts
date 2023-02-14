@@ -12,9 +12,38 @@ export const RACK_SERVICE = new InjectionToken<ModelServiceContract<Rack>>('rack
 export const PORT_SERVICE = new InjectionToken<ModelServiceContract<Port>>('port.service');
 
 export interface ModelServiceContract<M extends Model> {
+  /**
+   * Queries a single instance of the model.
+   * @param id The ID of the model to query.
+   * @returns An observable containing the model instance.
+   */
   find(id: number): Observable<M>;
+  
+  /**
+   * Queries for all instances of the model.
+   * @returns An observable containing an array of model instances.
+   */
   get(): Observable<Array<M>>;
+
+  /**
+   * Queries for all instances of the model matching the given index and ID.
+   * @param index The index with which to filter the results.
+   * @param id The ID of the index defined.
+   * @returns An observable containing an array of matching model instances.
+   */
   getByIndex(index: string, id: number): Observable<Array<M>>;
+
+  /**
+   * Stores the given model into a database.
+   * @param data The model to store.
+   * @returns The newly stored model.
+   */
   store(data: M): Observable<M>;
+
+  /**
+   * Deletes the model with the given ID from the database.
+   * @param id The ID of the model to delete.
+   * @returns A fresh list of models from the database.
+   */
   delete(id: number): Observable<Array<M>>;
 }

@@ -6,5 +6,8 @@ import { LocalApiService } from '../abstracts/local-api.service';
   providedIn: 'root'
 })
 export class LocalUserApiService extends LocalApiService<UserSchema> {
+  /**
+   * @inheritDoc
+   */
   protected storeName = 'users';
 }

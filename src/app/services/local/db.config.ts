@@ -1,5 +1,8 @@
 import { DBConfig } from 'ngx-indexed-db';
 
+/**
+ * The local database config.
+ */
 export const dbConfig: DBConfig = {
   name: 'rd-db',
   version: 1,

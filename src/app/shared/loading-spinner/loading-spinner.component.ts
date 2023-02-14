@@ -7,11 +7,15 @@ import { faSpinnerThird } from '@fortawesome/pro-duotone-svg-icons';
   styleUrls: ['./loading-spinner.component.scss']
 })
 export class LoadingSpinnerComponent {
-  constructor(private cdRef: ChangeDetectorRef) {}
+  /**
+   * @see {@link faSpinnerThird}
+   */
+  public readonly faSpinnerThird = faSpinnerThird;
 
+  /**
+   * If true, the spinner is fixed to the center of the screen.
+   */
   @HostBinding('class.fixed')
   @Input()
   public fixed: boolean = false;
-
-  public faSpinnerThird = faSpinnerThird;
 }

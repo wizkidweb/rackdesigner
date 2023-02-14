@@ -12,6 +12,12 @@ type WritableKeysOf<T> = {
 type WritablePart<T> = ExcludeFunctionPropertyNames<Pick<T, WritableKeysOf<T>>>;
 
 export class Model {
+  /**
+   * Creates a new instance of this model.
+   * @param this A reference to the `this` scope of the model.
+   * @param input Includes all writable properties of the model. This does not allow defining readonly properties, getters, or methods.
+   * @returns A newly-instantiated object of this model class.
+   */
   public static create<T extends ThisConstructor<typeof Model>>(
     this: T,
     input: WritablePart<This<T>>,

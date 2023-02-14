@@ -11,16 +11,36 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./user-index.component.scss']
 })
 export class UserIndexComponent implements OnInit {
-  constructor(@Inject(USER_SERVICE) private _userService: ModelServiceContract<User>) {}
+  /**
+   * @see {@link faTrash}
+   */
+  public readonly faTrash = faTrash;
 
+  /**
+   * The users to display in the table.
+   */
   public users: Array<User> = [];
 
+  /**
+   * When true, the loading spinner is displayed.
+   */
   public loading = true;
 
+  /**
+   * The name of the user to create.
+   */
   public name = new FormControl('');
+
+  /**
+   * The email of the user to create.
+   */
   public email = new FormControl('');
 
-  public faTrash = faTrash;
+  /**
+   * Creates a new instance of user index component.
+   * @param _userService A dynamically-injected copy of the user service defined in the module.
+   */
+  constructor(@Inject(USER_SERVICE) private _userService: ModelServiceContract<User>) {}
 
   public ngOnInit(): void {
     this.load();
