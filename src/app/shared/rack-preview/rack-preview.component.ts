@@ -3,7 +3,7 @@ import { Connection, DevicePort } from 'src/app/models/connection.model';
 import { Device } from 'src/app/models/device.model';
 import { Port } from 'src/app/models/port.model';
 import { Rack } from 'src/app/models/rack.model';
-import { RackPortComponent } from '../rack-port/rack-port.component';
+import { PortComponent } from '../port/port.component';
 
 declare var LeaderLine: any;
 
@@ -16,8 +16,8 @@ export class RackPreviewComponent implements AfterViewInit, OnDestroy {
   @Input()
   public rack!: Rack;
 
-  @ViewChildren(RackPortComponent)
-  public portComponents!: QueryList<RackPortComponent>;
+  @ViewChildren(PortComponent)
+  public portComponents!: QueryList<PortComponent>;
 
   public firstNode?: DevicePort;
   public lastNode?: DevicePort;

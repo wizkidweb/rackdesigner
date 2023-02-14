@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RackPortComponent } from './rack-port.component';
+import { PortComponent } from './port.component';
 
 describe('RackPortComponent', () => {
-  let component: RackPortComponent;
-  let fixture: ComponentFixture<RackPortComponent>;
+  let component: PortComponent;
+  let fixture: ComponentFixture<PortComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RackPortComponent ]
+      declarations: [ PortComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RackPortComponent);
+    fixture = TestBed.createComponent(PortComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

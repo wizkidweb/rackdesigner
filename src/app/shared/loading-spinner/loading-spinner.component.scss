@@ -1,4 +1,9 @@
 :host {
+  display: block;
+  text-align: center;
+}
+
+:host(.fixed) {
   position: fixed;
   top: 50%;
   left: 50%;

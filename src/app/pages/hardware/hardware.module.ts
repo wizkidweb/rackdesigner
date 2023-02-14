@@ -7,11 +7,13 @@ import { HardwareRoutingModule } from './hardware-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PortTableComponent } from './port-table/port-table.component';
 
 @NgModule({
   declarations: [
     HardwareIndexComponent,
-    HardwareDetailsComponent
+    HardwareDetailsComponent,
+    PortTableComponent
   ],
   imports: [
     PagesModule,

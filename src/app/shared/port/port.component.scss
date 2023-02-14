@@ -2,19 +2,23 @@
 
 :host {
   position: absolute;
-}
-
-.rack-port {
   position: absolute;
   width: cm(1.45);
   height: cm(1.6);
   background-color: #999;
-  border: 1px solid #333;
+  text-align: center;
   text-align: center;
   cursor: pointer;
+  font-size: cm(1.45) - 2px;
 
   &:hover {
-    border: 1px solid #fff;
+    background-color: #aaa;
+    outline: 1px solid #fff;
+    z-index: 100;
+
+    .port-tooltip {
+      display: block;
+    }
   }
 
   @for $i from 1 through 40 {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RackPreviewComponent } from './rack-preview/rack-preview.component';
-import { RackPortComponent } from './rack-port/rack-port.component';
+import { PortComponent } from './port/port.component';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { RackConnectionComponent } from './rack-connection/rack-connection.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
@@ -12,7 +12,7 @@ import { RackHardwareComponent } from './rack-hardware/rack-hardware.component';
 
 const components = [
   RackPreviewComponent,
-  RackPortComponent,
+  PortComponent,
   RackConnectionComponent,
   RackHardwareComponent,
   LoadingSpinnerComponent,

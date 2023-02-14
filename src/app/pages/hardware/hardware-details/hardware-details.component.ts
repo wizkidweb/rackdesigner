@@ -15,13 +15,6 @@ import { Port } from 'src/app/models/port.model';
   styleUrls: ['./hardware-details.component.scss']
 })
 export class HardwareDetailsComponent implements OnInit, OnDestroy {
-  constructor(
-    @Inject(HARDWARE_SERVICE) private _hardwareService: ModelServiceContract<Hardware>,
-    @Inject(PORT_SERVICE) private _portService: ModelServiceContract<Port>,
-    private _route: ActivatedRoute,
-    private fb: FormBuilder,
-  ) {}
-
   public readonly BS_COLORS = BootstrapColor;
   
   public hardware!: Hardware;
@@ -30,19 +23,20 @@ export class HardwareDetailsComponent implements OnInit, OnDestroy {
 
   public hardwareForm = this.fb.group({
     size: [1, Validators.required],
-    ports: this.fb.group({
-      xPos: [0, [Validators.min(0), Validators.max(32)]],
-      yPos: [0, [Validators.min(0), Validators.max(1)]],
-      type: ['rj45', Validators.required],
-    })
+    maxDraw: [],
   });
 
   public ports: Array<Port> = [];
 
   private _initSubscription!: Subscription;
 
+  constructor(
+    @Inject(HARDWARE_SERVICE) private _hardwareService: ModelServiceContract<Hardware>,
+    private _route: ActivatedRoute,
+    private fb: FormBuilder,
+  ) {}
+
   private _updateFormValues(): void {
-    this.ports = this.hardware.ports || [];
     this.hardwareForm.controls.size.setValue(this.hardware.size);
   }
 
@@ -64,24 +58,5 @@ export class HardwareDetailsComponent implements OnInit, OnDestroy {
       tap(() => this._updateFormValues()),
       tap(() => this.loading = false),
     );
-  }
-
-  public addPort(): void {
-    if (this.hardware?.id) {
-      this._portService.store(Port.create({
-        hardware_id: this.hardware.id,
-        xPos: this.hardwareForm.get('ports.xPos')?.value || 0,
-        yPos: this.hardwareForm.get('ports.yPos')?.value || 0,
-        type: this.hardwareForm.get('ports.type')?.value || '',
-      })).pipe(
-        tap(port => this.ports.push(port)),
-      ).subscribe();
-    }
-  }
-
-  public removePort(id: number): void {
-    this._portService.delete(id).pipe(
-      tap(ports => this.ports = ports),
-    ).subscribe();
   }
 }

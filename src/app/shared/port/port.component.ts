@@ -1,14 +1,15 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild } from '@angular/core';
+import { faEthernet } from '@fortawesome/pro-duotone-svg-icons';
 import { DevicePort } from 'src/app/models/connection.model';
 import { Device } from 'src/app/models/device.model';
 import { Port } from 'src/app/models/port.model';
 
 @Component({
-  selector: 'app-rack-port',
-  templateUrl: './rack-port.component.html',
-  styleUrls: ['./rack-port.component.scss']
+  selector: 'app-port',
+  templateUrl: './port.component.html',
+  styleUrls: ['./port.component.scss'],
 })
-export class RackPortComponent {
+export class PortComponent {
   @Input()
   public port!: Port;
 
@@ -21,13 +22,16 @@ export class RackPortComponent {
   @ViewChild('portRef')
   public portRef!: ElementRef;
 
-  public xPos(pos: number): string {
-    return (1.45 * pos) + 'em';
+  @HostBinding('class')
+  public get classes(): string {
+    if (this.port) {
+      return `xpos-${this.port.xPos} ypos-${this.port.yPos}`;
+    }
+
+    return '';
   }
 
-  public yPos(pos: number): string {
-    return (1.6 * pos) + 'em';
-  }
+  public faEthernet = faEthernet;
 
   public emitPortDevice(): void {
     this.selected.emit({ device: this.device, port: this.port });

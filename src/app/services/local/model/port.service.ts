@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { WithID } from 'ngx-indexed-db';
 import { ModelServiceContract } from 'src/app/data/contracts/model-service-contract.interface';
-import { Port } from 'src/app/models/port.model';
+import { Port, PortType } from 'src/app/models/port.model';
 import { LocalModelService } from '../abstracts/local-model.service';
 import { LocalPortApiService } from '../api/port-api.service';
 import { PortSchema } from '../schemas/port.schema';
@@ -28,7 +28,7 @@ export class LocalPortService extends LocalModelService<Port, PortSchema> implem
     return Port.create({
       id: input.id,
       hardware_id: input.hardware_id,
-      type: input.type,
+      type: input.type as PortType,
       xPos: parseInt(input.xPos),
       yPos: parseInt(input.yPos),
       output: parseInt(input.output),

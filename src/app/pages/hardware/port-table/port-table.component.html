@@ -1,0 +1,96 @@
+<h3>Ports</h3>
+
+<div class="table-responsive">
+  <table class="table table-striped mb-0">
+    <thead class="shadow-sm">
+      <tr>
+        <th>Position</th>
+        <th>Type</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="loading; else loaded">
+        <td colspan="3">
+          <app-loading-spinner></app-loading-spinner>
+        </td>
+      </tr>
+      
+      <ng-template #loaded>
+        <tr *ngIf="ports.length === 0">
+          <td colspan="3" class="text-center fst-italic text-secondary">
+            No ports have been added yet.
+          </td>
+        </tr>
+        <tr *ngFor="let port of ports">
+          <td>
+            <app-badge>{{ port.xPos }}, {{ port.yPos }}</app-badge>
+          </td>
+          <td>{{ port.typeDisplay }}</td>
+          <td>
+            <button type="button" class="btn btn-outline-danger btn-sm" (click)="removePort(port.id)">
+              <fa-icon [icon]="faTrash"></fa-icon>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+    <tfoot [formGroup]="portForm">
+      <tr>
+        <td>
+          <div class="row">
+            <div class="col">
+              <div class="form-floating">
+                <input
+                  type="number" 
+                  class="form-control"
+                  [class.is-invalid]="portForm.controls.xPos.invalid"
+                  placeholder="X Position"
+                  formControlName="xPos"
+                  id="portXPos"
+                >
+                <label for="portXPos">X Position</label>
+              </div>
+            </div>
+  
+            <div class="col">
+              <div class="form-floating">
+                <input
+                  type="number" 
+                  class="form-control"
+                  [class.is-invalid]="portForm.controls.yPos.invalid"
+                  placeholder="Y Position"
+                  formControlName="yPos"
+                  id="portYPos"
+                >
+                <label for="portYPos">Y Position</label>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="form-floating">
+            <select
+              id="portType"
+              class="form-select"
+              [class.is-invalid]="portForm.controls.type.invalid"
+              formControlName="type"
+            >
+              <option ngValue="rj45">RJ-45</option>
+              <option ngValue="sfp">SFP+</option>
+            </select>
+            <label for="portType">Type</label>
+          </div>
+        </td>
+        <td class="form-action-cell">
+          <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="portForm.invalid || loading"
+            (click)="addPort()"
+          >Add</button>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
