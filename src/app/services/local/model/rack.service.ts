@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Rack } from 'src/app/models/rack.model';
 import { RackSchema } from 'src/app/services/local/schemas/rack.schema';
 import { LocalRackApiService } from '../api/rack-api.service';
-import { WithID } from 'ngx-indexed-db';
 import { LocalModelService } from '../abstracts/local-model.service';
 import { ModelServiceContract } from 'src/app/data/contracts/model-service-contract.interface';
+import { Queried } from 'src/app/data/types/model.types';
 
 @Injectable({
   providedIn: 'root',
@@ -31,8 +31,8 @@ export class LocalRackService extends LocalModelService<Rack, RackSchema> implem
   /**
    * @inheritDoc
    */
-  protected _deserialize(input: RackSchema & WithID): Rack {
-    return Rack.create({
+  protected _deserialize(input: RackSchema): Queried<Rack> {
+    return Rack.createQueried({
       id: input.id,
       name: input.name,
       size: parseInt(input.size),

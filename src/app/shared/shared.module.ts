@@ -9,6 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BadgeComponent } from './badge/badge.component';
 import { FormsModule } from '@angular/forms';
 import { RackHardwareComponent } from './rack-hardware/rack-hardware.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 const components = [
   RackPreviewComponent,
@@ -17,6 +18,7 @@ const components = [
   RackHardwareComponent,
   LoadingSpinnerComponent,
   BadgeComponent,
+  ConfirmModalComponent,
 ];
 
 @NgModule({

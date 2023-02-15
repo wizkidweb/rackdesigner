@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { WithID } from 'ngx-indexed-db';
 import { map, mergeMap, Observable, tap, throwError } from 'rxjs';
 import { ModelServiceContract, PORT_SERVICE } from 'src/app/data/contracts/model-service-contract.interface';
+import { Queried } from 'src/app/data/types/model.types';
 import { Hardware } from 'src/app/models/hardware.model';
 import { Port } from 'src/app/models/port.model';
 import { LocalModelService } from '../abstracts/local-model.service';
@@ -31,7 +32,7 @@ export class LocalHardwareService
    * Queries for and adds port data to the loaded hardware.
    * @inheritDoc
    */
-  public override find(id: number): Observable<Hardware> {
+  public override find(id: number): Observable<Queried<Hardware>> {
     return super.find(id).pipe(
       mergeMap(hardware => this._addPorts(hardware)),
     );
@@ -42,11 +43,7 @@ export class LocalHardwareService
    * @param hardware The hardware the ports are being added to.
    * @returns An observable with hardware with ports added.
    */
-  protected _addPorts(hardware: Hardware): Observable<Hardware> {
-    if (!hardware.id) {
-      return throwError(() => new Error('Hardware ID is invalid!'));
-    }
-
+  protected _addPorts(hardware: Queried<Hardware>): Observable<Queried<Hardware>> {
     return this._portService.getByIndex('hardware_id', hardware.id).pipe(
       tap(ports => hardware.ports = ports),
       map(() => hardware),
@@ -68,8 +65,8 @@ export class LocalHardwareService
   /**
    * @inheritDoc
    */
-  protected _deserialize(input: HardwareSchema & WithID): Hardware {
-    return Hardware.create({
+  protected _deserialize(input: HardwareSchema & WithID): Queried<Hardware> {
+    return Hardware.createQueried({
       id: input.id,
       name: input.name,
       size: parseInt(input.size),

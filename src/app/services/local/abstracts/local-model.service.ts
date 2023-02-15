@@ -4,6 +4,7 @@ import { delay, map, Observable } from "rxjs";
 import { Model } from "src/app/data/abstracts/model";
 import { ModelService } from "src/app/data/abstracts/model.service";
 import { ModelServiceContract } from "src/app/data/contracts/model-service-contract.interface";
+import { Queried } from "src/app/data/types/model.types";
 import { LocalApiService } from "./local-api.service";
 
 @Injectable({
@@ -24,13 +25,13 @@ export abstract class LocalModelService<M extends Model, Schema> extends ModelSe
   /**
    * @inheritDoc
    */
-  protected abstract override _deserialize(input: Schema & WithID): M;
+  protected abstract override _deserialize(input: Schema & WithID): Queried<M>;
 
   /**
    * Waits for 200ms to simulate external database.
    * @inheritDoc
    */
-  public find(id: number): Observable<M> {
+  public find(id: number): Observable<Queried<M>> {
     return this._apiService.find(id).pipe(
       map(res => this._deserialize(res)),
       delay(200),
@@ -41,7 +42,7 @@ export abstract class LocalModelService<M extends Model, Schema> extends ModelSe
    * Waits for 200ms to simulate external database.
    * @inheritDoc
    */
-  public get(): Observable<Array<M>> {
+  public get(): Observable<Array<Queried<M>>> {
     return this._apiService.get().pipe(
       map(res => this._deserializeArray(res)),
       delay(200),
@@ -52,7 +53,7 @@ export abstract class LocalModelService<M extends Model, Schema> extends ModelSe
    * Waits for 200ms to simulate external database.
    * @inheritDoc
    */
-  public getByIndex(index: string, id: number): Observable<Array<M>> {
+  public getByIndex(index: string, id: number): Observable<Array<Queried<M>>> {
     return this._apiService.getByIndex(index, id).pipe(
       map(res => this._deserializeArray(res)),
       delay(200),
@@ -63,7 +64,7 @@ export abstract class LocalModelService<M extends Model, Schema> extends ModelSe
    * Waits for 200ms to simulate external database.
    * @inheritDoc
    */
-  public store(model: M): Observable<M> {
+  public store(model: M): Observable<Queried<M>> {
     return this._apiService.store(this._serialize(model)).pipe(
       map(res => this._deserialize(res)),
       delay(200),
@@ -74,7 +75,7 @@ export abstract class LocalModelService<M extends Model, Schema> extends ModelSe
    * Waits for 200ms to simulate external database.
    * @inheritDoc
    */
-  public delete(id: number): Observable<Array<M>> {
+  public delete(id: number): Observable<Array<Queried<M>>> {
     return this._apiService.delete(id).pipe(
       map(res => this._deserializeArray(res)),
       delay(200),

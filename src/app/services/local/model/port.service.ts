@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { WithID } from 'ngx-indexed-db';
 import { ModelServiceContract } from 'src/app/data/contracts/model-service-contract.interface';
+import { Queried } from 'src/app/data/types/model.types';
 import { Port, PortType } from 'src/app/models/port.model';
 import { LocalModelService } from '../abstracts/local-model.service';
 import { LocalPortApiService } from '../api/port-api.service';
@@ -34,8 +35,8 @@ export class LocalPortService extends LocalModelService<Port, PortSchema> implem
   /**
    * @inheritDoc
    */
-  protected _deserialize(input: PortSchema & WithID): Port {
-    return Port.create({
+  protected _deserialize(input: PortSchema & WithID): Queried<Port> {
+    return Port.createQueried({
       id: input.id,
       hardware_id: input.hardware_id,
       type: input.type as PortType,

@@ -4,11 +4,6 @@ import { Device } from "./device.model";
 
 export class Rack extends Model {
   /**
-   * The primary ID.
-   */
-  public id?: number;
-
-  /**
    * The name of the rack.
    */
   public name!: string;

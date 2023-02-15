@@ -1,69 +1,82 @@
 <h1>Racks</h1>
 
-<app-loading-spinner *ngIf="loading; else loaded"></app-loading-spinner>
+<table class="table table-striped">
+  <thead class="shadow-sm">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Size</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="loading; else loaded">
+      <td colspan="3">
+        <app-loading-spinner></app-loading-spinner>
+      </td>
+    </tr>
 
-<ng-template #loaded>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Size (U)</th>
-        <th>Actions</th>
+    <ng-template #loaded>
+      <tr *ngIf="racks.length === 0">
+        <td colspan="3" class="fst-italic text-center text-secondary">
+          No racks have been created yet.
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let rack of racks">
-        <th scope="row">{{ rack.id }}</th>
-        <td>{{ rack.name }}</td>
+      <tr *ngFor="let rack of racks" class="align-middle"a>
+        <td>
+          {{ rack.name }}
+          <div class="text-secondary">ID: <app-badge>{{ rack.id }}</app-badge></div>
         <td>{{ rack.size }}U</td>
         <td>
-          <button type="button" class="btn btn-danger btn-sm" *ngIf="rack.id" (click)="remove(rack.id)">
-            <fa-icon [icon]="faTrash"></fa-icon>
+          <button type="button" class="btn btn-sm btn-outline-danger" *ngIf="rack.id" (click)="showRemoveConfirmation(rack)">
+            <fa-icon [icon]="faDeleteLeft"></fa-icon> Delete
           </button>
         </td>
       </tr>
-      <tr>
-        <td colspan="4">
-          <strong>Create New Rack</strong>
-        </td>
-      </tr>
-      <tr [formGroup]="rackForm">
-        <td colspan="2">
-          <div class="form-floating">
-            <input
-              type="text" 
-              class="form-control"
-              [class.is-invalid]="rackForm.controls.name.invalid"
-              placeholder="Name"
-              formControlName="name"
-              id="name"
-            >
-            <label for="name">Name</label>
-          </div>
-        </td>
-        <td>
-          <div class="form-floating">
-            <input
-              type="number" 
-              class="form-control"
-              [class.is-invalid]="rackForm.controls.size.invalid"
-              placeholder="Size"
-              formControlName="size"
-              id="size"
-            >
-            <label for="size">Size</label>
-          </div>
-        </td>
-        <td class="align-middle">
-          <button
-            type="button"
-            class="btn btn-primary"
-            [disabled]="rackForm.invalid || loading"
-            (click)="add()"
-          >Add</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    </ng-template>
+    
+    <tr [formGroup]="rackForm">
+      <td>
+        <div class="form-floating">
+          <input
+            type="text" 
+            class="form-control"
+            [class.is-invalid]="rackForm.controls.name.invalid"
+            placeholder="Name"
+            formControlName="name"
+            id="name"
+          >
+          <label for="name">Name</label>
+        </div>
+      </td>
+      <td>
+        <div class="form-floating">
+          <input
+            type="number" 
+            class="form-control"
+            [class.is-invalid]="rackForm.controls.size.invalid"
+            placeholder="Size"
+            formControlName="size"
+            id="size"
+          >
+          <label for="size">Size</label>
+        </div>
+      </td>
+      <td class="align-middle">
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="rackForm.invalid || loading"
+          (click)="add()"
+        >Add</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #confirmDelete>
+  <div class="modal-body text-center">
+    <p>Are you sure you want to delete?</p>
+    <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Yes</button>
+    <button type="button" class="btn btn-primary" (click)="modalRef?.hide()">No</button>
+  </div>
 </ng-template>

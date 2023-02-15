@@ -1,18 +1,3 @@
-.table-responsive {
+.port-table {
   max-height: 500px;
-
-  thead,
-  tfoot {
-    position: sticky;
-    background-color: #fff;
-    z-index: 10;
-  }
-
-  thead {
-    top: 0;
-  }
-
-  tfoot {
-    bottom: 0;
-  }
 }

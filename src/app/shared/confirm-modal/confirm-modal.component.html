@@ -1,0 +1,15 @@
+<div class="alert-box shadow-lg">
+  <div class="modal-header" *ngIf="title">
+    <h4 class="modal-title">{{ title }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+  </div>
+
+  <div class="modal-body" *ngIf="message">
+    {{ message }}
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn" [ngClass]="'btn-' + noColor" (click)="onCancel()">{{ noLabel }}</button>
+    <button type="button" class="btn" [ngClass]="'btn-' + yesColor" (click)="onConfirm()">{{ yesLabel }}</button>
+  </div>
+</div>

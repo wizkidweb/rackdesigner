@@ -5,6 +5,7 @@ import { Port } from "src/app/models/port.model";
 import { Rack } from "src/app/models/rack.model";
 import { User } from "src/app/models/user.model";
 import { Model } from "../abstracts/model";
+import { Queried } from "../types/model.types";
 
 export const USER_SERVICE = new InjectionToken<ModelServiceContract<User>>('user.service');
 export const HARDWARE_SERVICE = new InjectionToken<ModelServiceContract<Hardware>>('hardware.service');
@@ -17,13 +18,13 @@ export interface ModelServiceContract<M extends Model> {
    * @param id The ID of the model to query.
    * @returns An observable containing the model instance.
    */
-  find(id: number): Observable<M>;
+  find(id: number): Observable<Queried<M>>;
   
   /**
    * Queries for all instances of the model.
    * @returns An observable containing an array of model instances.
    */
-  get(): Observable<Array<M>>;
+  get(): Observable<Array<Queried<M>>>;
 
   /**
    * Queries for all instances of the model matching the given index and ID.
@@ -31,7 +32,7 @@ export interface ModelServiceContract<M extends Model> {
    * @param id The ID of the index defined.
    * @returns An observable containing an array of matching model instances.
    */
-  getByIndex(index: string, id: number): Observable<Array<M>>;
+  getByIndex(index: string, id: number): Observable<Array<Queried<M>>>;
 
   /**
    * Stores the given model into a database.
@@ -45,5 +46,5 @@ export interface ModelServiceContract<M extends Model> {
    * @param id The ID of the model to delete.
    * @returns A fresh list of models from the database.
    */
-  delete(id: number): Observable<Array<M>>;
+  delete(id: number): Observable<Array<Queried<M>>>;
 }

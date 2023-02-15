@@ -1,3 +1,5 @@
+import { Queried } from "../types/model.types";
+
 type ThisConstructor<T extends { prototype: unknown } = { prototype: unknown }> = T;
 type This<T extends ThisConstructor> = T['prototype'];
 type ExcludeFunctionPropertyNames<T> = Pick<T, {
@@ -24,5 +26,18 @@ export class Model {
     input: WritablePart<This<T>>,
   ): This<T> {
     return Object.assign(new this(), input);
+  }
+
+  /**
+   * Creates a new queried instance of this model.
+   * @param this A reference to the `this` scope of the model.
+   * @param input Includes all writable properties of the model, including shared query model props.
+   * @returns A newly-instantiated and queried object of this model class.
+   */
+  public static createQueried<T extends ThisConstructor<typeof Model>>(
+    this: T,
+    input: WritablePart<Queried<This<T>>>,
+  ): Queried<This<T>> {
+    return Object.assign(new this(), input) as Queried<This<T>>;
   }
 }

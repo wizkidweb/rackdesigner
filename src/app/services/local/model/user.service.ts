@@ -5,6 +5,7 @@ import { WithID } from 'ngx-indexed-db';
 import { LocalModelService } from '../abstracts/local-model.service';
 import { LocalUserApiService } from '../api/user-api.service';
 import { ModelServiceContract } from 'src/app/data/contracts/model-service-contract.interface';
+import { Queried } from 'src/app/data/types/model.types';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,8 @@ export class LocalUserService extends LocalModelService<User, UserSchema> implem
   /**
    * @inheritDoc
    */
-  protected _deserialize(input: UserSchema & WithID): User {
-    return User.create({
+  protected _deserialize(input: UserSchema & WithID): Queried<User> {
+    return User.createQueried({
       id: input.id,
       name: input.name,
       email: input.email,

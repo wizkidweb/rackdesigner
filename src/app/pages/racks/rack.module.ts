@@ -7,6 +7,7 @@ import { PagesModule } from '../pages.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         SharedModule,
         ReactiveFormsModule,
         FontAwesomeModule,
+        ModalModule.forRoot(),
     ]
 })
 export class RackModule { }
