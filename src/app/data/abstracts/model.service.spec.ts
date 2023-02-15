@@ -3,8 +3,12 @@ import { Model } from './model';
 
 import { ModelService } from './model.service';
 
+type MockSchema = {
+  foo: string,
+}
+
 describe('ModelService', () => {
-  let service: ModelService<Model, {}>;
+  let service: ModelService<Model, MockSchema>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

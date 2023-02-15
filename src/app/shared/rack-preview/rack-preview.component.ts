@@ -1,13 +1,13 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, QueryList, ViewChildren } from '@angular/core';
-import { Connection, DevicePort } from 'src/app/models/connection.model';
-import { Device } from 'src/app/models/device.model';
-import { Port } from 'src/app/models/port.model';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { Component, Input, QueryList, ViewChildren } from '@angular/core';
+import { DevicePort } from 'src/app/models/connection.model';
 import { Rack } from 'src/app/models/rack.model';
 import { PortComponent } from '../port/port.component';
 
 // TODO: Update rack preview to support new port component.
 
-declare var LeaderLine: any;
+// declare let LeaderLine: any;
 
 @Component({
   selector: 'app-rack-preview',

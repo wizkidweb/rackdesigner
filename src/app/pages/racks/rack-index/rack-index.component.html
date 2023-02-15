@@ -28,15 +28,40 @@
           <strong>Create New Rack</strong>
         </td>
       </tr>
-      <tr>
+      <tr [formGroup]="rackForm">
         <td colspan="2">
-          <input type="text" class="form-control" [formControl]="name" placeholder="Name">
+          <div class="form-floating">
+            <input
+              type="text" 
+              class="form-control"
+              [class.is-invalid]="rackForm.controls.name.invalid"
+              placeholder="Name"
+              formControlName="name"
+              id="name"
+            >
+            <label for="name">Name</label>
+          </div>
         </td>
         <td>
-          <input type="number" class="form-control" [formControl]="size" placeholder="Size">
+          <div class="form-floating">
+            <input
+              type="number" 
+              class="form-control"
+              [class.is-invalid]="rackForm.controls.size.invalid"
+              placeholder="Size"
+              formControlName="size"
+              id="size"
+            >
+            <label for="size">Size</label>
+          </div>
         </td>
-        <td>
-          <button type="button" class="btn btn-primary" (click)="add()">Add</button>
+        <td class="align-middle">
+          <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="rackForm.invalid || loading"
+            (click)="add()"
+          >Add</button>
         </td>
       </tr>
     </tbody>

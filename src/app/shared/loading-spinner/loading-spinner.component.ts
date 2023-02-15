@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { faSpinnerThird } from '@fortawesome/pro-duotone-svg-icons';
 
 @Component({
@@ -17,5 +17,5 @@ export class LoadingSpinnerComponent {
    */
   @HostBinding('class.fixed')
   @Input()
-  public fixed: boolean = false;
+  public fixed = false;
 }

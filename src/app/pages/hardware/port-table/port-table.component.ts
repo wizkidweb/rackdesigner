@@ -26,7 +26,7 @@ export class PortTableComponent implements OnChanges {
    * When the port list changes, this is emitted.
    */
   @Output()
-  public change: EventEmitter<Array<Port>> = new EventEmitter<Array<Port>>();
+  public portsChanged: EventEmitter<Array<Port>> = new EventEmitter<Array<Port>>();
 
   /**
    * The ports to display in the table.
@@ -69,19 +69,19 @@ export class PortTableComponent implements OnChanges {
 
   /**
    * Loads new port data from the given {@link hardwareId}, and emits those changes.
-   * @see {@link change}
+   * @see {@link portsChanged}
    */
   public load(): void {
     this._portService.getByIndex('hardware_id', this.hardwareId).pipe(
       tap(ports => this.ports = ports),
-      tap(() => this.change.emit(this.ports)),
+      tap(() => this.portsChanged.emit(this.ports)),
       finalize(() => this.loading = false),
     ).subscribe();
   }
 
   /**
    * If the form is valid, adds a new port, then emits the changes.
-   * @see {@link change}
+   * @see {@link portsChanged}
    */
   public addPort(): void {
     if (this.portForm.valid) {
@@ -94,7 +94,7 @@ export class PortTableComponent implements OnChanges {
         type: this.portForm.controls.type.value as PortType,
       })).pipe(
         tap(port => this.ports.push(port)),
-        tap(() => this.change.emit(this.ports)),
+        tap(() => this.portsChanged.emit(this.ports)),
         finalize(() => this.loading = false),
       ).subscribe();
     }
@@ -103,7 +103,7 @@ export class PortTableComponent implements OnChanges {
   /**
    * Removes the port with the given ID, if valid, then emits the changes.
    * @param id The port ID to remove.
-   * @see {@link change}
+   * @see {@link portsChanged}
    */
   public removePort(id?: number): void {
     if (id) {
@@ -111,7 +111,7 @@ export class PortTableComponent implements OnChanges {
       
       this._portService.delete(id).pipe(
         tap(ports => this.ports = ports),
-        tap(() => this.change.emit(this.ports)),
+        tap(() => this.portsChanged.emit(this.ports)),
         finalize(() => this.loading = false),
       ).subscribe();
     }

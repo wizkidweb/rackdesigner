@@ -11,7 +11,7 @@ export class RackHardwareComponent {
    * The size of the hardware, in "U".
    */
   @Input()
-  public size: number = 1;
+  public size = 1;
 
   /**
    * The ports to be displayed.

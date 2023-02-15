@@ -1,10 +1,9 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faTrash } from '@fortawesome/pro-duotone-svg-icons';
 import { mergeMap, Observable, Subscription, tap } from 'rxjs';
-import { ModelService } from 'src/app/data/abstracts/model.service';
-import { HARDWARE_SERVICE, ModelServiceContract, PORT_SERVICE } from 'src/app/data/contracts/model-service-contract.interface';
+import { HARDWARE_SERVICE, ModelServiceContract } from 'src/app/data/contracts/model-service-contract.interface';
 import { BootstrapColor } from 'src/app/data/types/bootstrap.types';
 import { Hardware } from 'src/app/models/hardware.model';
 import { Port } from 'src/app/models/port.model';

@@ -37,7 +37,7 @@
         <app-port-table
           *ngIf="hardware.id"
           [hardwareId]="hardware.id"
-          (change)="this.ports = $event"
+          (portsChanged)="this.ports = $event"
         ></app-port-table>
       </div>
     </div>

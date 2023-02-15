@@ -1,6 +1,7 @@
 type ThisConstructor<T extends { prototype: unknown } = { prototype: unknown }> = T;
 type This<T extends ThisConstructor> = T['prototype'];
 type ExcludeFunctionPropertyNames<T> = Pick<T, {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   [K in keyof T]: T[K] extends Function ? never : K
 }[keyof T]>;
 type IfEquals<X, Y, A, B> =

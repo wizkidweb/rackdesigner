@@ -1,10 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Rack } from 'src/app/models/rack.model';
-import { Port } from 'src/app/models/port.model';
-import { Hardware } from 'src/app/models/hardware.model';
 import { ModelServiceContract, RACK_SERVICE } from 'src/app/data/contracts/model-service-contract.interface';
-import { FormControl } from '@angular/forms';
-import { faPenToSquare, faTrash } from '@fortawesome/pro-duotone-svg-icons';
+import { FormBuilder, Validators } from '@angular/forms';
+import { faTrash } from '@fortawesome/pro-duotone-svg-icons';
 import { finalize, tap } from 'rxjs';
 
 @Component({
@@ -29,20 +27,22 @@ export class RackIndexComponent implements OnInit {
   public loading = true;
 
   /**
-   * The name of the rack to create.
+   * The form for creating a new rack.
    */
-  public name = new FormControl('');
-
-  /**
-   * The size of the rack to create.
-   */
-  public size = new FormControl('');
+  public rackForm = this.fb.group({
+    name: ['', Validators.required],
+    size: ['', Validators.required],
+  });
 
   /**
    * Creates an instance of the rack index component.
    * @param _rackService A dynamically-injected copy of the rack service defined in the module.
+   * @param fb The form builder service.
    */
-  constructor(@Inject(RACK_SERVICE) private _rackService: ModelServiceContract<Rack>) {}
+  constructor(
+    @Inject(RACK_SERVICE) private _rackService: ModelServiceContract<Rack>,
+    private fb: FormBuilder,
+  ) {}
 
   /**
    * Loads rack data on component init.
@@ -68,10 +68,10 @@ export class RackIndexComponent implements OnInit {
    * Adds a new rack if the inputs are valid, then loads the latest rack data.
    */
   public add(): void {
-    if (this.name.valid && this.size.valid) {
+    if (this.rackForm.valid) {
       this._rackService.store(Rack.create({
-        name: this.name.value || '',
-        size: parseInt(this.size.value || ''),
+        name: this.rackForm.controls.name.value || '',
+        size: parseInt(this.rackForm.controls.size.value || ''),
       })).subscribe(() => this.load());
     }
   }

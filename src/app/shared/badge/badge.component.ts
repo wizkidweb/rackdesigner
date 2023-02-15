@@ -1,5 +1,7 @@
-import { Component, ContentChild, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function */
+
+import { Component, ContentChild, Input, OnChanges, SimpleChanges, TemplateRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { faCheck, faPen } from '@fortawesome/pro-duotone-svg-icons';
 import { BootstrapColor } from 'src/app/data/types/bootstrap.types';
 
@@ -37,13 +39,13 @@ export class BadgeComponent implements OnChanges, ControlValueAccessor {
    * If true, then the badge will be pill-shaped.
    */
   @Input()
-  public pill: boolean = false;
+  public pill = false;
 
   /**
    * If true, the badge will be editable and act as a form control.
    */
   @Input()
-  public editable: boolean = false;
+  public editable = false;
 
   /**
    * The label to display when editing the badge.
@@ -60,7 +62,7 @@ export class BadgeComponent implements OnChanges, ControlValueAccessor {
    * The callback defined when the value is changed.
    * @param value The value that was changed.
    */
-  public onChange = (value: string) => {};
+  public onChange = (_value: string) => {};
 
   /**
    * The callback defined when the value is touched.
@@ -85,12 +87,12 @@ export class BadgeComponent implements OnChanges, ControlValueAccessor {
   /**
    * The value displayed in the badge.
    */
-  public value: string = '';
+  public value = '';
 
   /**
    * The value displayed in the edit box.
    */
-  public valueTerm: string = '';
+  public valueTerm = '';
 
   /**
    * Gets a list of CSS class names to apply.
