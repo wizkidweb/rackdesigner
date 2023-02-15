@@ -1,4 +1,6 @@
-# Rackdesigner
+# RackDesigner
+
+This software allows users to design their ideal rack layout.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.3.
 
