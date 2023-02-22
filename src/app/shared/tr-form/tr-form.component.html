@@ -1,0 +1,23 @@
+<td colspan="100%" [formGroup]="formGroup">
+  <div class="d-flex align-items-stretch">
+    <div class="form-floating flex-fill me-2" *ngFor="let input of formInputs">
+      <input
+        [type]="input.type || 'text'"
+        class="form-control"
+        [class.is-invalid]="isInvalid(formGroup.controls[input.name])"
+        [placeholder]="input.label || formatLabel(input.name)"
+        [formControlName]="input.name"
+        [id]="input.name"
+      >
+      <label [for]="input.name">{{ input.label || formatLabel(input.name) }}</label>
+    </div>      
+
+    <button
+      type="button"
+      class="btn"
+      [ngClass]="'btn-' + submitColor"
+      [disabled]="formGroup.invalid || disabled"
+      (click)="submitForm($event)"
+    >{{ submitLabel }}</button>
+  </div>
+</td>

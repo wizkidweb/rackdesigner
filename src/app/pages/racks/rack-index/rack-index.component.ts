@@ -1,13 +1,14 @@
 import { Component, Inject, OnInit, TemplateRef } from '@angular/core';
 import { Rack } from 'src/app/models/rack.model';
 import { ModelServiceContract, RACK_SERVICE } from 'src/app/data/contracts/model-service-contract.interface';
-import { FormBuilder, Validators } from '@angular/forms';
-import { faDeleteLeft } from '@fortawesome/pro-duotone-svg-icons';
-import { finalize, iif, Observable, of, tap } from 'rxjs';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { faDeleteLeft, faPencil } from '@fortawesome/pro-duotone-svg-icons';
+import { EMPTY, finalize, iif, mergeMap, Observable, of, Subject, tap } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ConfirmModalComponent } from 'src/app/shared/confirm-modal/confirm-modal.component';
 import { BootstrapColor } from 'src/app/data/types/bootstrap.types';
 import { Queried } from 'src/app/data/types/model.types';
+import { TrFormInput, TrFormOutput } from 'src/app/shared/tr-form/tr-form.component';
 
 @Component({
   selector: 'app-rack-index',
@@ -19,6 +20,11 @@ export class RackIndexComponent implements OnInit {
    * @see {@link faTrash}
    */
   public readonly faDeleteLeft = faDeleteLeft;
+
+  /**
+   * @see {@link faPencil}
+   */
+  public readonly faPencil = faPencil;
 
   /**
    * The racks to display in the table.
@@ -36,21 +42,12 @@ export class RackIndexComponent implements OnInit {
   public modalRef?: BsModalRef;
 
   /**
-   * The form for creating a new rack.
-   */
-  public rackForm = this._fb.group({
-    name: ['', Validators.required],
-    size: ['', Validators.required],
-  });
-
-  /**
    * Creates an instance of the rack index component.
    * @param _rackService A dynamically-injected copy of the rack service defined in the module.
    * @param _fb The form builder service.
    */
   constructor(
     @Inject(RACK_SERVICE) private _rackService: ModelServiceContract<Rack>,
-    private _fb: FormBuilder,
     private _modalService: BsModalService,
   ) {}
 
@@ -59,6 +56,21 @@ export class RackIndexComponent implements OnInit {
    */
   public ngOnInit(): void {
     this.load();
+  }
+
+  /**
+   * The form input options to create a new Rack.
+   */
+  public get formInputs(): TrFormInput {
+    return {
+      name: {
+        validators: [Validators.required],
+      },
+      size: {
+        type: 'number',
+        validators: [Validators.required, Validators.min(1)],
+      },
+    };
   }
 
   /**
@@ -77,40 +89,41 @@ export class RackIndexComponent implements OnInit {
   /**
    * Adds a new rack if the inputs are valid, then loads the latest rack data.
    */
-  public add(): void {
-    if (this.rackForm.valid) {
-      this._rackService.store(Rack.create({
-        name: this.rackForm.controls.name.value || '',
-        size: parseInt(this.rackForm.controls.size.value || ''),
-      })).pipe(
-        tap(() => this.load()),
-        tap(() => this.rackForm.reset()),
-      ).subscribe();
-    }
+  public add(formResponse: Record<string, string>): void {
+    this._rackService.store(Rack.create({
+      name: formResponse['name'],
+      size: parseInt(formResponse['size']),
+    })).pipe(
+      tap(() => this.load()),
+    ).subscribe();
   }
 
   /**
    * Removes the rack with the given ID, then updates the current rack table.
    * @param id The rack ID to remove.
+   * @returns An observable array of queried Rack models.
    */
   public remove(id: number): Observable<Array<Queried<Rack>>> {
-    return this._rackService.delete(id);
+    this.loading = true;
+
+    return this._rackService.delete(id).pipe(
+      tap(racks => this.racks = racks),
+      finalize(() => this.loading = false),
+    );
   }
 
+  /**
+   * Displays the confirmation dialog for deletion of the given Rack.
+   * @param rack The rack to be deleted.
+   */
   public showRemoveConfirmation(rack: Queried<Rack>): void {
     this.modalRef = this._modalService.show(ConfirmModalComponent, { backdrop: 'static', keyboard: false });
     this.modalRef.content.title = 'Delete Rack';
     this.modalRef.content.message = `Are you sure you want to delete the rack titled "${rack.name}"?`;
     this.modalRef.content.yesLabel = 'Yes, Delete';
     this.modalRef.content.yesColor = BootstrapColor.danger;
-    // this.modalRef.content.onClose.pipe(
-    //   iif((result: boolean) => (result && rack.id), this._rackService.delete(rack.id), of()),
-    // ).subscribe();
-
-    this.modalRef.content.onClose.subscribe((result: boolean) => {
-      if (result && rack.id) {
-        this.remove(rack.id);
-      }
-    });
+    this.modalRef.content.onClose.pipe(
+      mergeMap((response: boolean) => iif(() => response, this.remove(rack.id), EMPTY)),
+    ).subscribe();
   }
 }

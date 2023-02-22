@@ -7,9 +7,10 @@ import { RackConnectionComponent } from './rack-connection/rack-connection.compo
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BadgeComponent } from './badge/badge.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RackHardwareComponent } from './rack-hardware/rack-hardware.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { TrFormComponent } from './tr-form/tr-form.component';
 
 const components = [
   RackPreviewComponent,
@@ -19,6 +20,7 @@ const components = [
   LoadingSpinnerComponent,
   BadgeComponent,
   ConfirmModalComponent,
+  TrFormComponent,
 ];
 
 @NgModule({
@@ -28,6 +30,7 @@ const components = [
     PopoverModule.forRoot(),
     FontAwesomeModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   exports: components,
 })

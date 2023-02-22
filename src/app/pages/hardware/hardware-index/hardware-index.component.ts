@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { finalize, tap } from 'rxjs';
 import { HARDWARE_SERVICE, ModelServiceContract } from 'src/app/data/contracts/model-service-contract.interface';
@@ -35,10 +35,10 @@ export class HardwareIndexComponent implements OnInit {
    * The form group for creating new hardware.
    */
   public hardwareForm = this.fb.group({
-    name: [''],
-    size: [''],
+    name: ['', Validators.required],
+    size: ['', [Validators.required, Validators.min(1)]],
     maxDraw: [''],
-    color: [''],
+    color: ['', Validators.pattern(/^#[0-9A-F]{6}$/i)],
   });
 
   /**
