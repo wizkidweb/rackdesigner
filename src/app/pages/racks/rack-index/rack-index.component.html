@@ -38,7 +38,11 @@
       </tr>
     </ng-template>
 
-    <tr app-tr-form [inputs]="formInputs" (submitted)="add($event)"></tr>
+    <tr app-tr-form [formGroup]="rackForm">
+      <app-form-input formControlName="name"></app-form-input>
+      <app-form-input type="number" formControlName="size"></app-form-input>
+      <button class="btn btn-primary" type="button" [disabled]="rackForm.invalid" (click)="add()">Add</button>
+    </tr>
   </tbody>
 </table>
 

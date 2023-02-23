@@ -8,7 +8,6 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ConfirmModalComponent } from 'src/app/shared/confirm-modal/confirm-modal.component';
 import { BootstrapColor } from 'src/app/data/types/bootstrap.types';
 import { Queried } from 'src/app/data/types/model.types';
-import { TrFormInput, TrFormOutput } from 'src/app/shared/tr-form/tr-form.component';
 
 @Component({
   selector: 'app-rack-index',
@@ -42,6 +41,14 @@ export class RackIndexComponent implements OnInit {
   public modalRef?: BsModalRef;
 
   /**
+   * The form for creating a new rack.
+   */
+  public rackForm = this._fb.group({
+    name: ['', Validators.required],
+    size: [null, [Validators.required, Validators.min(1), Validators.max(40)]],
+  });
+
+  /**
    * Creates an instance of the rack index component.
    * @param _rackService A dynamically-injected copy of the rack service defined in the module.
    * @param _fb The form builder service.
@@ -49,6 +56,7 @@ export class RackIndexComponent implements OnInit {
   constructor(
     @Inject(RACK_SERVICE) private _rackService: ModelServiceContract<Rack>,
     private _modalService: BsModalService,
+    private _fb: FormBuilder,
   ) {}
 
   /**
@@ -56,21 +64,6 @@ export class RackIndexComponent implements OnInit {
    */
   public ngOnInit(): void {
     this.load();
-  }
-
-  /**
-   * The form input options to create a new Rack.
-   */
-  public get formInputs(): TrFormInput {
-    return {
-      name: {
-        validators: [Validators.required],
-      },
-      size: {
-        type: 'number',
-        validators: [Validators.required, Validators.min(1)],
-      },
-    };
   }
 
   /**
@@ -89,12 +82,14 @@ export class RackIndexComponent implements OnInit {
   /**
    * Adds a new rack if the inputs are valid, then loads the latest rack data.
    */
-  public add(formResponse: Record<string, string>): void {
+  public add(): void {
+    this.loading = true;
     this._rackService.store(Rack.create({
-      name: formResponse['name'],
-      size: parseInt(formResponse['size']),
+      name: this.rackForm.controls.name.value,
+      size: this.rackForm.controls.size.value,
     })).pipe(
       tap(() => this.load()),
+      tap(() => this.rackForm.reset()),
     ).subscribe();
   }
 

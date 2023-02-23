@@ -1,1 +1,15 @@
-<p>form-input works!</p>
+<div class="form-floating me-2">
+  <input
+    [type]="type"
+    class="form-control"
+    [class.is-invalid]="invalid"
+    [placeholder]="label || formatLabel(formControlName)"
+    [id]="formControlName"
+    [(ngModel)]="value"
+    (input)="update()"
+  >
+  <label [for]="formControlName">{{ label || formatLabel(formControlName) }}</label>
+  <div class="invalid-feedback" *ngIf="invalid">
+    <div *ngFor="let error of errors">{{ error | errorMsg }}</div>
+  </div>
+</div>

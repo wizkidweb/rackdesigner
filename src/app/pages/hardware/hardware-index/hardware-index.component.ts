@@ -36,8 +36,8 @@ export class HardwareIndexComponent implements OnInit {
    */
   public hardwareForm = this.fb.group({
     name: ['', Validators.required],
-    size: ['', [Validators.required, Validators.min(1)]],
-    maxDraw: [''],
+    size: [null, [Validators.required, Validators.min(1)]],
+    maxDraw: [null],
     color: ['', Validators.pattern(/^#[0-9A-F]{6}$/i)],
   });
 
@@ -75,14 +75,12 @@ export class HardwareIndexComponent implements OnInit {
    * Adds a new hardware entity if the form is valid.
    */
   public add(): void {
-    if (this.hardwareForm.valid) {
-      this._hardwareService.store(Hardware.create({
-        name: this.hardwareForm.controls.name.value || '',
-        size: parseInt(this.hardwareForm.controls.size.value || ''),
-        maxDraw: parseInt(this.hardwareForm.controls.maxDraw.value || ''),
-        color: this.hardwareForm.controls.color.value || '',
-      })).subscribe(() => this.load());
-    }
+    this._hardwareService.store(Hardware.create({
+      name: this.hardwareForm.controls.name.value,
+      size: this.hardwareForm.controls.size.value,
+      maxDraw: this.hardwareForm.controls.maxDraw.value,
+      color: this.hardwareForm.controls.color.value,
+    })).subscribe(() => this.load());
   }
 
   /**

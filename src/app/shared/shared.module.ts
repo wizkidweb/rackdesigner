@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RackHardwareComponent } from './rack-hardware/rack-hardware.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { TrFormComponent } from './tr-form/tr-form.component';
+import { FormInputComponent } from './form-input/form-input.component';
+import { ErrorMsgPipe } from './pipes/error-msg.pipe';
 
 const components = [
   RackPreviewComponent,
@@ -21,10 +23,15 @@ const components = [
   BadgeComponent,
   ConfirmModalComponent,
   TrFormComponent,
+  FormInputComponent,
+];
+
+const pipes = [
+  ErrorMsgPipe,
 ];
 
 @NgModule({
-  declarations: components,
+  declarations: [...components, ...pipes],
   imports: [
     CommonModule,
     PopoverModule.forRoot(),
@@ -32,6 +39,6 @@ const components = [
     FormsModule,
     ReactiveFormsModule,
   ],
-  exports: components,
+  exports: [...components, ...pipes],
 })
 export class SharedModule { }

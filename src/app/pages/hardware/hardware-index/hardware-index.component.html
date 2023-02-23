@@ -19,7 +19,7 @@
         <th scope="row">{{ h.id }}</th>
         <td>{{ h.name }}</td>
         <td>{{ h.size }}U</td>
-        <td>{{ h.maxDraw }}W</td>
+        <td>{{ h.maxDraw || 0 }}W</td>
         <td>{{ h.color }}</td>
         <td>
           <div class="btn-group" role="group" aria-label="Actions">
@@ -38,22 +38,12 @@
           <strong>Create New Hardware</strong>
         </td>
       </tr>
-      <tr [formGroup]="hardwareForm">
-        <td colspan="2">
-          <input type="text" class="form-control" formControlName="name" placeholder="Name">
-        </td>
-        <td>
-          <input type="number" class="form-control" formControlName="size" placeholder="Size">
-        </td>
-        <td>
-          <input type="number" class="form-control" formControlName="maxDraw" placeholder="Max Power Draw">
-        </td>
-        <td>
-          <input type="string" class="form-control" formControlName="color" placeholder="Color">
-        </td>
-        <td>
-          <button type="button" class="btn btn-primary" (click)="add()">Add</button>
-        </td>
+      <tr app-tr-form [formGroup]="hardwareForm">
+        <app-form-input formControlName="name"></app-form-input>
+        <app-form-input type="number" formControlName="size"></app-form-input>
+        <app-form-input type="number" formControlName="maxDraw"></app-form-input>
+        <app-form-input formControlName="color"></app-form-input>
+        <button class="btn btn-primary" type="button" [disabled]="hardwareForm.invalid" (click)="add()">Add</button>
       </tr>
     </tbody>
   </table>
